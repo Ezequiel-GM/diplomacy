@@ -1,35 +1,16 @@
-import { ReactElement } from "react";
-import { Redirect, RouteComponentProps, Router } from "@reach/router";
-import { useAuthState } from "react-firebase-hooks/auth";
+import styled from 'styled-components';
 
-import Error from "./pages/Error";
-import Games from "./pages/Games";
-import Loading from "./pages/Loading";
-import Login from "./pages/Login";
-import NotFound from "./pages/NotFound";
+import AuthRouter from "./AuthRouter";
 
-import { auth } from "./firebase";
-
-interface RouteProps extends RouteComponentProps {
-  page: ReactElement;
-}
-
-const PageRoute = (props: RouteProps) => props.page;
+const AppBackground = styled.div`
+  height: 100%;
+  background-color: ${({ theme }) => theme.color.appBackground};
+`
 
 export default function App() {
-  const [user, loading, error] = useAuthState(auth);
-
-  if (error) return <Error error={error} />;
-
-  if (loading) return <Loading />;
-
-  if (!user) return <Login />;
-
   return (
-    <Router>
-      <Redirect from="/" to="/games" noThrow />
-      <PageRoute page={<Games />} path="/games" />
-      <PageRoute page={<NotFound />} default />
-    </Router>
-  );
+    <AppBackground>
+      <AuthRouter />
+    </AppBackground>
+  )
 }
