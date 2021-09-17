@@ -13,7 +13,6 @@ import { auth } from "./firebase";
 interface RouteProps extends RouteComponentProps {
   page: ReactElement;
 }
-
 const PageRoute = (props: RouteProps) => props.page;
 
 export default function AuthRouter() {
