@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
 import { auth } from "./firebase";
+import Game from "./pages/Game";
 
 interface RouteProps extends RouteComponentProps {
   page: ReactElement;
@@ -22,12 +23,13 @@ export default function AuthRouter() {
 
   if (loading) return <Loading />;
 
-  if (!user) return <Login />;
+  if (!user && false) return <Login />;
 
   return (
     <Router>
       <Redirect from="/" to="/games" noThrow />
       <PageRoute page={<Games />} path="/games" />
+      <PageRoute page={<Game />} path="/game/:gameId" />
       <PageRoute page={<NotFound />} default />
     </Router>
   );
