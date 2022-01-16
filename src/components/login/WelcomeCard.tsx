@@ -20,7 +20,7 @@ export default function WelcomeCard() {
     <Card width={240}>
       <Heading1>Welcome!</Heading1>
       <Paragraph>
-        <i>Diplomatic</i> is a modern, online diplomacy game to play with your
+        <b>Diplomatic</b> is a modern, online diplomacy game to play with your
         friends, and it's <strong>100% free!</strong>
       </Paragraph>
       <Paragraph>Key features include:</Paragraph>
@@ -29,10 +29,10 @@ export default function WelcomeCard() {
           <b>Sandbox mode</b>
         </ListItem>
         <ListItem>
-          <b>Custom game maps</b>
+          <b>Live map updates</b>
         </ListItem>
         <ListItem>
-          <b>Live map updates</b>
+          <b>Custom game maps</b>
         </ListItem>
       </UnorderedList>
       <TextButton width="100%">Create an Account</TextButton>
