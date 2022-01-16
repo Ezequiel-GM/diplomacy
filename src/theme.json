@@ -18,6 +18,7 @@
   "fontSize": {
     "button": 11,
     "textField": 12,
+    "textFieldError": 10,
     "textFieldLabel": 11
   },
   "padding": {

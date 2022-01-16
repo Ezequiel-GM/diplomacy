@@ -1,6 +1,4 @@
-import { useState } from "react";
 import styled from "styled-components";
-import uniqueId from "lodash/uniqueId";
 
 const Wrapper = styled.div`
   margin: 8px 0;
@@ -18,13 +16,14 @@ const Wrapper = styled.div`
 
 const Label = styled.label`
   display: block;
-  margin: 0 12px 4px;
+  margin: 0 12px 2px;
   font-size: ${(props) => `${props.theme.fontSize.textFieldLabel}pt`};
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ error?: boolean }>`
   display: block;
-  border: 2px solid black;
+  border: 2px solid
+    ${({ error, theme }) => (error ? theme.color.error : "black")};
   border-radius: ${(props) => `${props.theme.borderRadius.textField}px`};
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -51,28 +50,54 @@ const Input = styled.input`
   }
 
   &:focus {
-    border: 2px solid ${(props) => props.theme.color.primary};
+    border: 2px solid
+      ${({ error, theme }) => (error ? theme.color.error : theme.color.primary)};
   }
 `;
 
+const ErrorMessage = styled.strong<{ error?: boolean }>`
+  display: block;
+  margin: 0 12px;
+  font-size: ${(props) => `${props.theme.fontSize.textFieldError}pt`};
+  font-weight: normal;
+  color: ${(props) => props.theme.color.error};
+
+  transition: transform 0.2s;
+  transform: ${(props) => (props.error ? "scaleY(1)" : "scaleY(0)")};
+  -moz-transform: ${(props) => (props.error ? "scaleY(1)" : "scaleY(0)")};
+  -webkit-transform: ${(props) => (props.error ? "scaleY(1)" : "scaleY(0)")};
+`;
+
 interface Props {
+  id: string;
+  name: string;
   type?: string;
   width?: number;
+  value?: string;
   label?: string;
   placeholder?: string;
+  error?: boolean;
+  errorMessage?: string;
+  onChange?: (e: any) => void;
+  onBlur?: (e: any) => void;
 }
 export default function TextField(props: Props) {
-  const [id] = useState(uniqueId("textfield-"));
-
   return (
     <Wrapper>
-      {props.label ? <Label htmlFor={id}>{props.label}</Label> : null}
+      {props.label ? <Label htmlFor={props.id}>{props.label}</Label> : null}
       <Input
-        id={id}
+        id={props.id}
+        name={props.name}
+        type={props.type}
         width={props.width}
         placeholder={props.placeholder}
-        type={props.type}
+        error={props.error}
+        onChange={(e) => (props.onChange ? props.onChange(e) : null)}
+        onBlur={(e) => (props.onBlur ? props.onBlur(e) : null)}
       />
+      <ErrorMessage error={props.error}>
+        {props.error ? props.errorMessage : null}
+      </ErrorMessage>
     </Wrapper>
   );
 }

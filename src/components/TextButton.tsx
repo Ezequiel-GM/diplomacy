@@ -34,9 +34,10 @@ const Overlay = styled.div`
 export default function TextButton(props: {
   children?: ReactNode;
   width?: string;
+  type?: "button" | "submit" | "reset" | undefined;
 }) {
   return (
-    <Button width={props.width}>
+    <Button width={props.width} type={props.type}>
       <Overlay>{props.children}</Overlay>
     </Button>
   );
