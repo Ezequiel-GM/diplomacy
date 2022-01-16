@@ -10,11 +10,11 @@ const Background = styled.div`
 
   @keyframes slide {
     0% {
-      background-position-x: 0;
+      background-position-x: -300px;
     }
 
     100% {
-      background-position: -3177px;
+      background-position: -3477px;
     }
   }
 `;

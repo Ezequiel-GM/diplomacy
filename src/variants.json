@@ -1,0 +1,61 @@
+{
+  "classic": {
+    "name": "Classic",
+    "width": 1000,
+    "height": 1000,
+    "regions": [
+      {
+        "id": "alb",
+        "name": "Albania",
+        "centerPoint": {
+          "x": 500,
+          "y": 250
+        },
+        "coordinates": [
+          {
+            "x": 0,
+            "y": 0
+          },
+          {
+            "x": 1000,
+            "y": 0
+          },
+          {
+            "x": 1000,
+            "y": 500
+          },
+          {
+            "x": 0,
+            "y": 500
+          }
+        ]
+      },
+      {
+        "id": "arm",
+        "name": "Armenia",
+        "centerPoint": {
+          "x": 500,
+          "y": 750
+        },
+        "coordinates": [
+          {
+            "x": 0,
+            "y": 500
+          },
+          {
+            "x": 1000,
+            "y": 500
+          },
+          {
+            "x": 1000,
+            "y": 1000
+          },
+          {
+            "x": 0,
+            "y": 1000
+          }
+        ]
+      }
+    ]
+  }
+}

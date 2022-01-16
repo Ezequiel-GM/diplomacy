@@ -1,7 +1,12 @@
-import { useParams } from "@reach/router";
+import { useParams } from "react-router-dom";
+import GameMap from "../components/game/GameMap";
 
-export default function Game() {
-  const params = useParams();
+export default function Game(): JSX.Element {
+  const params = useParams<{ gameId: string }>();
 
-  return <>Param: {params.gameId}</>;
+  return (
+    <>
+      <GameMap gameId={params.gameId!} />
+    </>
+  );
 }

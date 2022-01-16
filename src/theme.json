@@ -1,5 +1,27 @@
 {
+  "borderRadius": {
+    "button": 32,
+    "card": 24,
+    "textField": 32
+  },
+  "boxShadow": {
+    "card": "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
+  },
   "color": {
-    "appBackground": "#0099CC"
+    "appBackground": "#0099CC",
+    "card": "#FFFAFA",
+    "error": "red",
+    "onPrimary": "white",
+    "primary": "#0099CC",
+    "primaryOverlay": "rgba(255, 255, 255, 0.1)"
+  },
+  "fontSize": {
+    "button": 11,
+    "textField": 12,
+    "textFieldLabel": 11
+  },
+  "padding": {
+    "button": 12,
+    "card": 32
   }
 }
