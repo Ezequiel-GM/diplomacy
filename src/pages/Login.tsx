@@ -15,8 +15,15 @@ const Center = styled.div`
   justify-content: center;
 `;
 
+const Cards = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: wrap;
+`;
+
 const CardWrapper = styled(motion.div)`
-  margin: 32px;
+  margin: 16px 32px;
 `;
 
 const visibilityVariants = {
@@ -42,12 +49,14 @@ export default function Login() {
     >
       <MapBackground>
         <Center>
-          <CardWrapper variants={visibilityVariants}>
-            <WelcomeCard />
-          </CardWrapper>
-          <CardWrapper variants={visibilityVariants}>
-            <LoginCard />
-          </CardWrapper>
+          <Cards>
+            <CardWrapper variants={visibilityVariants}>
+              <WelcomeCard />
+            </CardWrapper>
+            <CardWrapper variants={visibilityVariants}>
+              <LoginCard />
+            </CardWrapper>
+          </Cards>
         </Center>
       </MapBackground>
     </PageMotion>
