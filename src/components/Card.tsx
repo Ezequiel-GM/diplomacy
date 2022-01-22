@@ -24,9 +24,9 @@ export default function Card(props: Props) {
   return (
     <Wrapper
       initial={{ opacity: 0, x: -40 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: 40 }}
-      transition={{ duration: 0.3, type: "linear" }}
+      animate={{ opacity: 1, x: 0, transition: { type: "easeIn" } }}
+      exit={{ opacity: 0, x: 40, transition: { type: "easeOut" } }}
+      transition={{ duration: 0.3 }}
     >
       <Container width={props.width} height={props.height}>
         {props.children}

@@ -1,5 +1,9 @@
+import { FirebaseError } from "firebase/app";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormikValues, useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
 import { EMAIL_REG_EXP } from "../../constants";
+import { auth } from "../../firebase";
 import Card from "../Card";
 import Heading1 from "../Heading1";
 import TextButton from "../TextButton";
@@ -24,6 +28,8 @@ const validate = (values: FormikValues) => {
 };
 
 export default function LoginCard() {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -31,8 +37,18 @@ export default function LoginCard() {
     },
     validate,
     validateOnBlur: false,
-    onSubmit: (values) => console.log(values), // TODO replace with Firebase service call
+    onSubmit: (values) => signIn(values.email, values.password),
   });
+
+  const signIn = (email: string, password: string): void => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then(handleSignIn)
+      .catch(handleSignInError);
+  };
+
+  const handleSignIn = (): void => navigate("/games");
+
+  const handleSignInError = (error: FirebaseError) => {};
 
   return (
     <Card>
