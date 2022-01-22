@@ -1,12 +1,26 @@
 import { FormikValues, useFormik } from "formik";
+import styled from "styled-components";
 import { EMAIL_REG_EXP } from "../../constants";
 import Card from "../Card";
 import Heading1 from "../Heading1";
+import LinkButton from "../LinkButton";
 import TextButton from "../TextButton";
 import TextField from "../TextField";
 
-const validate = (values: FormikValues) => {
-  const errors: { email?: string; password?: string } = {};
+const BottomSection = styled.div`
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+`;
+
+const validate = async (values: FormikValues) => {
+  const errors: { displayName?: string; email?: string; password?: string } =
+    {};
+
+  // Validate displayName
+  if (!values.displayName) {
+    errors.displayName = "Please enter a display name.";
+  }
 
   // Validate email
   if (!values.email) {
@@ -23,9 +37,13 @@ const validate = (values: FormikValues) => {
   return errors;
 };
 
-export default function LoginCard() {
+interface Props {
+  onClickBack: () => void;
+}
+export default function RegisterCard(props: Props) {
   const formik = useFormik({
     initialValues: {
+      displayName: "",
       email: "",
       password: "",
     },
@@ -36,8 +54,21 @@ export default function LoginCard() {
 
   return (
     <Card>
-      <Heading1>Sign In</Heading1>
+      <Heading1>Create an Account</Heading1>
       <form onSubmit={formik.handleSubmit} noValidate>
+        <TextField
+          id="displayName"
+          name="displayName"
+          label="Display Name"
+          value={formik.values.displayName}
+          error={
+            formik.touched.displayName &&
+            formik.errors.displayName !== undefined
+          }
+          errorMessage={formik.errors.displayName}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+        />
         <TextField
           id="email"
           name="email"
@@ -63,9 +94,12 @@ export default function LoginCard() {
           onBlur={formik.handleBlur}
         />
         <TextButton width="100%" type="submit">
-          Log In
+          Create Account
         </TextButton>
       </form>
+      <BottomSection>
+        <LinkButton onClick={props.onClickBack}>Back to Login</LinkButton>
+      </BottomSection>
     </Card>
   );
 }

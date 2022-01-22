@@ -1,5 +1,10 @@
+import { motion } from "framer-motion";
 import { ReactNode } from "react";
 import styled from "styled-components";
+
+const Wrapper = styled(motion.div)`
+  margin: 16px 32px;
+`;
 
 const Container = styled.section<Props>`
   width: ${(props) => (props.width ? `${props.width}px` : "auto")};
@@ -17,8 +22,14 @@ interface Props {
 }
 export default function Card(props: Props) {
   return (
-    <Container width={props.width} height={props.height}>
-      {props.children}
-    </Container>
+    <Wrapper
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <Container width={props.width} height={props.height}>
+        {props.children}
+      </Container>
+    </Wrapper>
   );
 }

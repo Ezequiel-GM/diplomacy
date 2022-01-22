@@ -15,7 +15,10 @@ const ListItem = styled.li`
   margin: 4px 0;
 `;
 
-export default function WelcomeCard() {
+interface Props {
+  onClickRegister: () => void;
+}
+export default function WelcomeCard(props: Props) {
   return (
     <Card width={240}>
       <Heading1>Welcome!</Heading1>
@@ -35,7 +38,9 @@ export default function WelcomeCard() {
           <b>Custom game maps</b>
         </ListItem>
       </UnorderedList>
-      <TextButton width="100%">Create an Account</TextButton>
+      <TextButton width="100%" onClick={props.onClickRegister}>
+        Create an Account
+      </TextButton>
     </Card>
   );
 }

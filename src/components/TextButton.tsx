@@ -31,13 +31,15 @@ const Overlay = styled.div`
   }
 `;
 
-export default function TextButton(props: {
+interface Props {
+  onClick?: () => void;
   children?: ReactNode;
   width?: string;
   type?: "button" | "submit" | "reset" | undefined;
-}) {
+}
+export default function TextButton(props: Props) {
   return (
-    <Button width={props.width} type={props.type}>
+    <Button width={props.width} type={props.type} onClick={props.onClick}>
       <Overlay>{props.children}</Overlay>
     </Button>
   );

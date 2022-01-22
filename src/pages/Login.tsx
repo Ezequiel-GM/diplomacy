@@ -1,7 +1,9 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import styled from "styled-components";
 import LoginCard from "../components/login/LoginCard";
 import MapBackground from "../components/login/MapBackground";
+import RegisterCard from "../components/login/RegisterCard";
 import WelcomeCard from "../components/login/WelcomeCard";
 
 const PageMotion = styled(motion.main)`
@@ -15,15 +17,11 @@ const Center = styled.div`
   justify-content: center;
 `;
 
-const Cards = styled.div`
+const CardsPresence = styled(AnimatePresence)`
   display: flex;
   align-items: center;
   justify-content: center;
   flex-flow: wrap;
-`;
-
-const CardWrapper = styled(motion.div)`
-  margin: 16px 32px;
 `;
 
 const visibilityVariants = {
@@ -41,6 +39,8 @@ const visibilityVariants = {
 };
 
 export default function Login() {
+  const [view, setView] = useState<"login" | "register">("login");
+
   return (
     <PageMotion
       variants={visibilityVariants}
@@ -49,14 +49,18 @@ export default function Login() {
     >
       <MapBackground>
         <Center>
-          <Cards>
-            <CardWrapper variants={visibilityVariants}>
-              <WelcomeCard />
-            </CardWrapper>
-            <CardWrapper variants={visibilityVariants}>
-              <LoginCard />
-            </CardWrapper>
-          </Cards>
+          <CardsPresence exitBeforeEnter>
+            {view === "login" && (
+              <WelcomeCard
+                key="welcomeCard"
+                onClickRegister={() => setView("register")}
+              />
+            )}
+            {view === "login" && <LoginCard key="loginCard" />}
+            {view === "register" && (
+              <RegisterCard onClickBack={() => setView("login")} />
+            )}
+          </CardsPresence>
         </Center>
       </MapBackground>
     </PageMotion>
