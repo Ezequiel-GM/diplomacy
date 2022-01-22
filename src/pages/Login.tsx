@@ -10,7 +10,7 @@ const PageMotion = styled(motion.main)`
   height: 100%;
 `;
 
-const Center = styled.div`
+const Center = styled(motion.div)`
   height: 100%;
   display: flex;
   align-items: center;
@@ -32,8 +32,7 @@ const visibilityVariants = {
     opacity: 1,
     transition: {
       duration: 1,
-      delayChildren: 0.25,
-      staggerChildren: 0.25,
+      delayChildren: 0.5,
     },
   },
 };
@@ -48,7 +47,7 @@ export default function Login() {
       animate="visible"
     >
       <MapBackground>
-        <Center>
+        <Center variants={visibilityVariants}>
           <CardsPresence exitBeforeEnter>
             {view === "login" && (
               <WelcomeCard
