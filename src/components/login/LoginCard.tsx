@@ -1,10 +1,12 @@
 import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormikValues, useFormik } from "formik";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { EMAIL_REG_EXP } from "../../constants";
 import { auth } from "../../firebase";
 import Card from "../Card";
+import FormError from "../FormError";
 import Heading1 from "../Heading1";
 import TextButton from "../TextButton";
 import TextField from "../TextField";
@@ -28,6 +30,7 @@ const validate = (values: FormikValues) => {
 };
 
 export default function LoginCard() {
+  const [error, setError] = useState<string>();
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -48,10 +51,22 @@ export default function LoginCard() {
 
   const handleSignIn = (): void => navigate("/games");
 
-  const handleSignInError = (error: FirebaseError) => {};
+  const handleSignInError = (error: FirebaseError) => {
+    switch (error.code) {
+      case "auth/user-not-found":
+      case "auth/wrong-password":
+        setError("Incorrect email or password.");
+        break;
+      case "auth/too-many-requests":
+        setError("Too many attempts. Wait a few minutes and try again.");
+        break;
+      default:
+        setError("Login failed.");
+    }
+  };
 
   return (
-    <Card>
+    <Card width={240}>
       <Heading1>Sign In</Heading1>
       <form onSubmit={formik.handleSubmit} noValidate>
         <TextField
@@ -78,6 +93,7 @@ export default function LoginCard() {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
+        {error && <FormError>{error}</FormError>}
         <TextButton width="100%" type="submit">
           Log In
         </TextButton>
