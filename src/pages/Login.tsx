@@ -35,6 +35,12 @@ const visibilityVariants = {
       delayChildren: 0.5,
     },
   },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 1,
+    },
+  },
 };
 
 export default function Login() {
@@ -45,6 +51,7 @@ export default function Login() {
       variants={visibilityVariants}
       initial="hidden"
       animate="visible"
+      exit="exit"
     >
       <MapBackground>
         <Center variants={visibilityVariants}>

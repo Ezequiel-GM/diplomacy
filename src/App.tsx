@@ -9,6 +9,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import styled from "styled-components";
+import AppBar from "./components/AppBar";
 import { auth } from "./firebase";
 
 import Error from "./pages/Error";
@@ -21,16 +22,19 @@ import NotFound from "./pages/NotFound";
 const AppBackground = styled.div`
   height: 100%;
   background-color: ${({ theme }) => theme.color.appBackground};
+  display: flex;
+  flex-direction: column;
 `;
 
 const FullPage = styled(motion.div)`
-  height: 100%;
+  flex-grow: 1;
 `;
 
 export default function App() {
   return (
     <AppBackground>
       <BrowserRouter>
+        <AppBar />
         <CustomRoutes>
           <Route path="/" element={<Navigate replace to="/games" />} />
           <Route
@@ -41,7 +45,6 @@ export default function App() {
               </RequireAuth>
             }
           />
-          <Route path="/login" element={<Login />} />
           <Route
             path="/game/:gameId"
             element={
@@ -83,7 +86,7 @@ function RequireAuth(props: { children: ReactChild }): JSX.Element {
         </FullPage>
       )}
       {user && props.children}
-      {!user && !loading && <Navigate replace to="/login" />}
+      {!user && !loading && <Login key="login" />}
     </AnimatePresence>
   );
 }
