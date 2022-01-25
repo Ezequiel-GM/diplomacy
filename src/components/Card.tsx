@@ -23,7 +23,7 @@ interface Props {
 export default function Card(props: Props) {
   return (
     <Wrapper
-      initial={{ opacity: 0, x: -40 }}
+      initial={{ opacity: 0, x: 0 }}
       animate={{ opacity: 1, x: 0, transition: { type: "easeIn" } }}
       exit={{ opacity: 0, x: 40, transition: { type: "easeOut" } }}
       transition={{ duration: 0.3 }}
