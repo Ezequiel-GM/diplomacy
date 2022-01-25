@@ -10,7 +10,7 @@
   },
   "color": {
     "appBackground": "#0099CC",
-    "card": "#FFFAFA",
+    "card": "white",
     "error": "red",
     "onPrimary": "white",
     "primary": "#0099CC",
