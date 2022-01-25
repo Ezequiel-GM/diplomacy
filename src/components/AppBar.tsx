@@ -83,7 +83,9 @@ export default function AppBar() {
   const logoControls = useAnimation();
   const [isCentered, setIsCentered] = useState(false);
 
-  appBarControls.start("center").then(() => setIsCentered(true));
+  useEffect(() => {
+    appBarControls.start("center").then(() => setIsCentered(true));
+  }, [appBarControls]);
 
   useEffect(() => {
     if (isCentered && user && !loading) {
