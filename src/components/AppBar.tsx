@@ -107,7 +107,7 @@ export default function AppBar() {
           initial="initial"
           animate={logoControls}
         >
-          <Link to="/">
+          <Link to="/games">
             <Logo />
           </Link>
         </LogoContainer>
