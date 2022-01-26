@@ -16,6 +16,7 @@
     "error": "red",
     "onPrimary": "white",
     "onPrimaryDisabled": "gray",
+    "onPrimaryOverlay": "rgba(0, 0, 0, 0.04)",
     "primary": "#0099CC",
     "primaryDisabled": "#E0E0E0",
     "primaryOverlay": "rgba(255, 255, 255, 0.1)",
@@ -24,6 +25,7 @@
   },
   "fontSize": {
     "button": 11,
+    "navLink": 14,
     "textField": 12,
     "textFieldError": 10,
     "textFieldLabel": 11
