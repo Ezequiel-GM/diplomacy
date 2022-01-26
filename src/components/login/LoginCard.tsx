@@ -2,7 +2,6 @@ import { FirebaseError } from "firebase/app";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FormikValues, useFormik } from "formik";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { EMAIL_REG_EXP } from "../../constants";
 import { auth } from "../../firebase";
 import Card from "../Card";
@@ -29,9 +28,12 @@ const validate = (values: FormikValues) => {
   return errors;
 };
 
-export default function LoginCard() {
+interface Props {
+  onChangeSigningIn: (signingIn: boolean) => void;
+}
+export default function LoginCard(props: Props) {
+  const [isSigningIn, setIsSigningIn] = useState(false);
   const [error, setError] = useState<string>();
-  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -44,14 +46,16 @@ export default function LoginCard() {
   });
 
   const signIn = (email: string, password: string): void => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(handleSignIn)
-      .catch(handleSignInError);
+    setIsSigningIn(true);
+    props.onChangeSigningIn(true);
+
+    signInWithEmailAndPassword(auth, email, password).catch(handleSignInError);
   };
 
-  const handleSignIn = (): void => navigate("/games");
-
   const handleSignInError = (error: FirebaseError) => {
+    setIsSigningIn(false);
+    props.onChangeSigningIn(false);
+
     switch (error.code) {
       case "auth/user-not-found":
       case "auth/wrong-password":
@@ -75,6 +79,7 @@ export default function LoginCard() {
           label="Email"
           type="email"
           value={formik.values.email}
+          disabled={isSigningIn}
           error={formik.touched.email && formik.errors.email !== undefined}
           errorMessage={formik.errors.email}
           onChange={formik.handleChange}
@@ -86,6 +91,7 @@ export default function LoginCard() {
           label="Password"
           type="password"
           value={formik.values.password}
+          disabled={isSigningIn}
           error={
             formik.touched.password && formik.errors.password !== undefined
           }
@@ -94,7 +100,7 @@ export default function LoginCard() {
           onBlur={formik.handleBlur}
         />
         {error && <FormError>{error}</FormError>}
-        <TextButton width="100%" type="submit">
+        <TextButton width="100%" type="submit" disabled={isSigningIn}>
           Log In
         </TextButton>
       </form>

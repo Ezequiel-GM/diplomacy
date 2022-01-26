@@ -1,7 +1,12 @@
+import { FirebaseError } from "firebase/app";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FormikValues, useFormik } from "formik";
+import { useState } from "react";
 import styled from "styled-components";
 import { EMAIL_REG_EXP } from "../../constants";
+import { auth } from "../../firebase";
 import Card from "../Card";
+import FormError from "../FormError";
 import Heading1 from "../Heading1";
 import LinkButton from "../LinkButton";
 import TextButton from "../TextButton";
@@ -41,6 +46,9 @@ interface Props {
   onClickBack: () => void;
 }
 export default function RegisterCard(props: Props) {
+  const [isCreatingAccount, setIsCreatingAccount] = useState(false);
+  const [error, setError] = useState<string>();
+
   const formik = useFormik({
     initialValues: {
       displayName: "",
@@ -49,11 +57,44 @@ export default function RegisterCard(props: Props) {
     },
     validate,
     validateOnBlur: false,
-    onSubmit: (values) => console.log(values), // TODO replace with Firebase service call
+    onSubmit: (values) =>
+      createAccount(values.displayName, values.email, values.password),
   });
 
+  const createAccount = async (
+    displayName: string,
+    email: string,
+    password: string
+  ): Promise<void> => {
+    setIsCreatingAccount(true);
+
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(({ user }) => updateProfile(user, { displayName: displayName }))
+      .catch(handleCreateAccountError);
+  };
+
+  const handleCreateAccountError = (error: FirebaseError) => {
+    setIsCreatingAccount(false);
+
+    console.log(error);
+
+    switch (error.code) {
+      case "auth/email-already-in-use":
+        setError("An account with that email already exists.");
+        break;
+      case "auth/invalid-email":
+        setError("Invalid email address.");
+        break;
+      case "auth/weak-password":
+        setError("Password must be at least 6 characters.");
+        break;
+      default:
+        setError("Account creation failed.");
+    }
+  };
+
   return (
-    <Card>
+    <Card width={240}>
       <Heading1>Create an Account</Heading1>
       <form onSubmit={formik.handleSubmit} noValidate>
         <TextField
@@ -61,6 +102,7 @@ export default function RegisterCard(props: Props) {
           name="displayName"
           label="Display Name"
           value={formik.values.displayName}
+          disabled={isCreatingAccount}
           error={
             formik.touched.displayName &&
             formik.errors.displayName !== undefined
@@ -75,6 +117,7 @@ export default function RegisterCard(props: Props) {
           label="Email"
           type="email"
           value={formik.values.email}
+          disabled={isCreatingAccount}
           error={formik.touched.email && formik.errors.email !== undefined}
           errorMessage={formik.errors.email}
           onChange={formik.handleChange}
@@ -86,6 +129,7 @@ export default function RegisterCard(props: Props) {
           label="Password"
           type="password"
           value={formik.values.password}
+          disabled={isCreatingAccount}
           error={
             formik.touched.password && formik.errors.password !== undefined
           }
@@ -93,7 +137,8 @@ export default function RegisterCard(props: Props) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
         />
-        <TextButton width="100%" type="submit">
+        {error && <FormError>{error}</FormError>}
+        <TextButton width="100%" type="submit" disabled={isCreatingAccount}>
           Create Account
         </TextButton>
       </form>

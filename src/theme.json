@@ -10,11 +10,17 @@
   },
   "color": {
     "appBackground": "#0099CC",
+    "border": "black",
+    "borderDisabled": "gray",
     "card": "white",
     "error": "red",
     "onPrimary": "white",
+    "onPrimaryDisabled": "gray",
     "primary": "#0099CC",
-    "primaryOverlay": "rgba(255, 255, 255, 0.1)"
+    "primaryDisabled": "#E0E0E0",
+    "primaryOverlay": "rgba(255, 255, 255, 0.1)",
+    "text": "black",
+    "textDisabled": "gray"
   },
   "fontSize": {
     "button": 11,

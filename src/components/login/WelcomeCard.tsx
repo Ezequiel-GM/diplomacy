@@ -17,6 +17,7 @@ const ListItem = styled.li`
 
 interface Props {
   onClickRegister: () => void;
+  disabled: boolean;
 }
 export default function WelcomeCard(props: Props) {
   return (
@@ -38,7 +39,11 @@ export default function WelcomeCard(props: Props) {
           <b>Custom game maps</b>
         </ListItem>
       </UnorderedList>
-      <TextButton width="100%" onClick={props.onClickRegister}>
+      <TextButton
+        width="100%"
+        onClick={props.onClickRegister}
+        disabled={props.disabled}
+      >
         Create an Account
       </TextButton>
     </Card>

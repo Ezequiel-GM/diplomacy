@@ -1,33 +1,36 @@
 import { ReactNode } from "react";
 import styled from "styled-components";
 
-const Button = styled.button<{ width?: string }>`
+const Button = styled.button<{ width?: string; disabled?: boolean }>`
   width: ${(props) => (props.width ? props.width : "")};
-  background-color: ${(props) => props.theme.color.primary};
-  color: ${(props) => props.theme.color.onPrimary};
+  background-color: ${({ disabled, theme }) =>
+    disabled ? theme.color.primaryDisabled : theme.color.primary};
+  color: ${({ disabled, theme }) =>
+    disabled ? theme.color.onPrimaryDisabled : theme.color.onPrimary};
   font-size: ${(props) => `${props.theme.fontSize.but}pt`};
   border: none;
   border-radius: ${(props) => `${props.theme.borderRadius.button}px`};
   padding: 0;
 
-  transition: transform 0.2s;
+  transition: 0.2s;
   &:active {
-    transform: translateY(2px);
+    transform: ${({ disabled }) => (disabled ? "" : "translateY(2px)")};
   }
 
   &:hover {
-    cursor: pointer;
+    cursor: ${({ disabled }) => (disabled ? "" : "pointer")};
   }
 `;
 
-const Overlay = styled.div`
+const Overlay = styled.div<{ disabled?: boolean }>`
   padding: ${(props) => `${props.theme.padding.button}px`};
   border-radius: ${(props) => `${props.theme.borderRadius.button}px`};
 
   background-color: rgba(255, 255, 255, 0);
   transition: background-color 0.2s;
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: ${({ disabled }) =>
+      disabled ? "" : "rgba(255, 255, 255, 0.1)"};
   }
 `;
 
@@ -36,11 +39,17 @@ interface Props {
   children?: ReactNode;
   width?: string;
   type?: "button" | "submit" | "reset" | undefined;
+  disabled?: boolean;
 }
 export default function TextButton(props: Props) {
   return (
-    <Button width={props.width} type={props.type} onClick={props.onClick}>
-      <Overlay>{props.children}</Overlay>
+    <Button
+      width={props.width}
+      type={props.type}
+      onClick={props.onClick}
+      disabled={props.disabled}
+    >
+      <Overlay disabled={props.disabled}>{props.children}</Overlay>
     </Button>
   );
 }

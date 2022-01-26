@@ -45,6 +45,7 @@ const visibilityVariants = {
 
 export default function Login() {
   const [view, setView] = useState<"login" | "register">("login");
+  const [isSigningIn, setIsSigningIn] = useState(false);
 
   return (
     <PageMotion
@@ -60,9 +61,15 @@ export default function Login() {
               <WelcomeCard
                 key="welcomeCard"
                 onClickRegister={() => setView("register")}
+                disabled={isSigningIn}
               />
             )}
-            {view === "login" && <LoginCard key="loginCard" />}
+            {view === "login" && (
+              <LoginCard
+                key="loginCard"
+                onChangeSigningIn={(signingIn) => setIsSigningIn(signingIn)}
+              />
+            )}
             {view === "register" && (
               <RegisterCard onClickBack={() => setView("login")} />
             )}

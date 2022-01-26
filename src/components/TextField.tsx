@@ -14,16 +14,23 @@ const Wrapper = styled.div`
   }
 `;
 
-const Label = styled.label`
+const Label = styled.label<{ disabled?: boolean }>`
   display: block;
   margin: 0 12px 2px;
   font-size: ${(props) => `${props.theme.fontSize.textFieldLabel}pt`};
+  color: ${({ disabled, theme }) =>
+    disabled ? theme.color.textDisabled : theme.color.text};
 `;
 
 const Input = styled.input<{ error?: boolean }>`
   display: block;
   border: 2px solid
-    ${({ error, theme }) => (error ? theme.color.error : "black")};
+    ${({ disabled, error, theme }) =>
+      error
+        ? theme.color.error
+        : disabled
+        ? theme.color.borderDisabled
+        : theme.color.border};
   border-radius: ${(props) => `${props.theme.borderRadius.textField}px`};
   box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -76,6 +83,7 @@ interface Props {
   value?: string;
   label?: string;
   placeholder?: string;
+  disabled?: boolean;
   error?: boolean;
   errorMessage?: string;
   onChange?: (e: any) => void;
@@ -84,13 +92,18 @@ interface Props {
 export default function TextField(props: Props) {
   return (
     <Wrapper>
-      {props.label ? <Label htmlFor={props.id}>{props.label}</Label> : null}
+      {props.label ? (
+        <Label htmlFor={props.id} disabled={props.disabled}>
+          {props.label}
+        </Label>
+      ) : null}
       <Input
         id={props.id}
         name={props.name}
         type={props.type}
         width={props.width}
         placeholder={props.placeholder}
+        disabled={props.disabled}
         error={props.error}
         onChange={(e) => (props.onChange ? props.onChange(e) : null)}
         onBlur={(e) => (props.onBlur ? props.onBlur(e) : null)}
