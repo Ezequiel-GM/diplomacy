@@ -3,25 +3,23 @@ import styled from "styled-components";
 
 const NavLink = styled(Link)<{ matches: number }>`
   height: 100%;
-  padding: 0px 32px 0px;
+  padding: 0px 24px 0px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-decoration: none;
+  font-weight: bold;
   font-size: ${({ theme }) => `${theme.fontSize.navLink}pt`};
-  color: ${({ theme }) => theme.color.primary};
+  color: ${({ matches, theme }) =>
+    matches ? theme.color.text : theme.color.navLink};
+  transition: color ${({ matches }) => (matches ? "1s" : "0s")};
 
-  background-color: ${({ matches, theme }) =>
-    matches ? theme.color.onPrimaryOverlay : ""};
-  &:hover {
-    background-color: ${({ theme }) => theme.color.onPrimaryOverlay};
-  }
-  &:active {
-    background-color: ${({ theme }) => theme.color.onPrimaryOverlay};
-    padding: 4px 32px 0px;
-    height: calc(100% - 4px);
-  }
-  transition: padding 0.1s, height 0.1s;
+  box-sizing: border-box;
+  border-style: inset;
+  border: none;
+  border-top: 3px solid transparent;
+  border-bottom: ${({ matches, theme }) =>
+    matches ? `3px solid ${theme.color.primary}` : "3px solid transparent"};
 `;
 
 const routes = [

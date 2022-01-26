@@ -32,11 +32,11 @@ const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
   align-items: center;
   justify-content: center;
   width: 180px;
-  margin-right: ${({ expanded }) => (expanded ? "32px" : "0")};
+  margin-right: ${({ expanded }) => (expanded ? "64px" : "0")};
 `;
 
 const Logo = styled(LogoSvg)`
-  margin-top: 6px;
+  margin-top: 8px;
   fill: ${(props) => props.theme.color.primary};
 `;
 
@@ -77,7 +77,7 @@ const appBarVariants = {
     y: 0,
     borderRadius: ["0 0 100% 100%", "0 0 0% 0%"],
     flexGrow: [0.0001, 1],
-    padding: ["0 32px 12px", "0 32px 0px"],
+    padding: ["0 32px 12px", "0 64px 0px"],
     transition: {
       type: "linear",
       duration: 0.75,
@@ -139,12 +139,20 @@ export default function AppBar() {
           </Link>
         </LogoContainer>
         {isExpanded && (
-          <NavContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <NavContainer
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.75 }}
+          >
             <NavLinks />
           </NavContainer>
         )}
         {isExpanded && (
-          <ProfileContainer initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <ProfileContainer
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.25, duration: 0.75 }}
+          >
             profile
           </ProfileContainer>
         )}

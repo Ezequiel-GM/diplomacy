@@ -14,6 +14,7 @@
     "borderDisabled": "gray",
     "card": "white",
     "error": "red",
+    "navLink": "darkgray",
     "onPrimary": "white",
     "onPrimaryDisabled": "gray",
     "onPrimaryOverlay": "rgba(0, 0, 0, 0.04)",
@@ -25,7 +26,7 @@
   },
   "fontSize": {
     "button": 11,
-    "navLink": 14,
+    "navLink": 12,
     "textField": 12,
     "textFieldError": 10,
     "textFieldLabel": 11
