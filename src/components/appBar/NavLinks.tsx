@@ -12,7 +12,6 @@ const NavLink = styled(Link)<{ matches: number }>`
   font-size: ${({ theme }) => `${theme.fontSize.navLink}pt`};
   color: ${({ matches, theme }) =>
     matches ? theme.color.text : theme.color.navLink};
-  transition: color ${({ matches }) => (matches ? "1s" : "0s")};
 
   box-sizing: border-box;
   border-style: inset;
@@ -20,6 +19,11 @@ const NavLink = styled(Link)<{ matches: number }>`
   border-top: 3px solid transparent;
   border-bottom: ${({ matches, theme }) =>
     matches ? `3px solid ${theme.color.primary}` : "3px solid transparent"};
+
+  &:hover {
+    color: ${({ theme }) => theme.color.text};
+    transition: color 0.5s;
+  }
 `;
 
 const routes = [
