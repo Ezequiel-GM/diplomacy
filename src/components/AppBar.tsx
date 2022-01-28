@@ -42,12 +42,12 @@ const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 180px;
   margin-right: ${({ expanded }) => (expanded ? "32px" : "0")};
 `;
 
 const Logo = styled(LogoSvg)`
   margin-top: 8px;
+  width: 180px;
   fill: ${(props) => props.theme.color.primary};
 `;
 
