@@ -6,7 +6,8 @@
   },
   "boxShadow": {
     "appBar": "0px 8px 32px 0px rgba(0, 0, 0, 0.1)",
-    "card": "0px 8px 16px 4px rgba(0, 0, 0, 0.1)"
+    "card": "0px 8px 16px 4px rgba(0, 0, 0, 0.1)",
+    "sideBar": "4px 32px 32px 0px rgba(0, 0, 0, 0.1)"
   },
   "color": {
     "appBackground": "#0099CC",
