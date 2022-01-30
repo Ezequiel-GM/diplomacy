@@ -58,7 +58,7 @@ const IconWrapper = styled.div`
 const Label = styled.div<{ expanded: boolean }>`
   margin-left: 48px;
   opacity: ${({ expanded }) => (expanded ? 1 : 0)};
-  transition: ${({ expanded }) => (expanded ? "opacity 0.5s" : "opacity 0.3s")};
+  transition: opacity 0.25s;
   transition-delay: ${({ expanded }) => (expanded ? "0.1s" : "0s")};
   transition-property: opacity;
   position: absolute;
