@@ -6,8 +6,9 @@ import {
   Map,
 } from "@styled-icons/ionicons-outline";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import NavLink from "./NavLink";
+import NavLinkBackground from "./NavLinkBackground";
 
 const Container = styled.div`
   height: 100%;
@@ -23,45 +24,6 @@ const NavLinksContainer = styled.nav`
   justify-content: flex-start;
   padding: 8px 0;
   transition: 0.5s;
-`;
-
-const NavLink = styled(Link)<{ expanded: boolean; matches: number }>`
-  padding: 8px;
-  margin: 4px 16px;
-  min-width: ${({ expanded }) => (expanded ? "196px" : "0px")};
-  transition: 0.5s;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: ${({ theme }) => `${theme.fontSize.navLink}pt`};
-  color: ${({ matches, theme }) =>
-    matches ? theme.color.onPrimary : theme.color.navLink};
-  background-color: ${({ matches, theme }) =>
-    matches ? theme.color.primary : "transparent"};
-  border-radius: ${({ theme }) => `${theme.borderRadius.navLink}px`};
-
-  &:hover {
-    color: ${({ matches, theme }) =>
-      matches ? theme.color.onPrimary : theme.color.text};
-    background-color: ${({ matches, theme }) =>
-      matches ? theme.color.primary : theme.color.onPrimaryOverlay};
-  }
-`;
-
-const IconWrapper = styled.div`
-  width: 32px;
-`;
-
-const Label = styled.div<{ expanded: boolean }>`
-  margin-left: 48px;
-  opacity: ${({ expanded }) => (expanded ? 1 : 0)};
-  transition: opacity 0.25s;
-  transition-delay: ${({ expanded }) => (expanded ? "0.1s" : "0s")};
-  transition-property: opacity;
-  position: absolute;
 `;
 
 const ToggleButton = styled.button`
@@ -80,38 +42,36 @@ const ToggleButton = styled.button`
   }
 `;
 
-export default function SidebarContent() {
-  const location = useLocation();
-  const [isExpanded, setIsExpanded] = useState(true);
+const routes = [
+  {
+    name: "Games",
+    path: "/games",
+    icon: <GameController />,
+  },
+  {
+    name: "Sandboxes",
+    path: "/sandboxes",
+    icon: <Cube />,
+  },
+  {
+    name: "Maps",
+    path: "/maps",
+    icon: <Map />,
+  },
+];
 
-  const matches = (path: string): number =>
-    path === location.pathname ? 1 : 0;
+export default function SidebarContent() {
+  const [isExpanded, setIsExpanded] = useState(true);
 
   return (
     <Container>
       <NavLinksContainer>
-        <NavLink to="/games" expanded={isExpanded} matches={matches("/games")}>
-          <IconWrapper>
-            <GameController />
-          </IconWrapper>
-          <Label expanded={isExpanded}>Games</Label>
-        </NavLink>
-        <NavLink
-          to="/sandboxes"
-          expanded={isExpanded}
-          matches={matches("/sandboxes")}
-        >
-          <IconWrapper>
-            <Cube />
-          </IconWrapper>
-          <Label expanded={isExpanded}>Sandboxes</Label>
-        </NavLink>
-        <NavLink to="/maps" expanded={isExpanded} matches={matches("/maps")}>
-          <IconWrapper>
-            <Map />
-          </IconWrapper>
-          <Label expanded={isExpanded}>Maps</Label>
-        </NavLink>
+        <NavLinkBackground paths={routes.map((route) => route.path)} />
+        {routes.map((route) => (
+          <NavLink to={route.path} label={route.name} expanded={isExpanded}>
+            {route.icon}
+          </NavLink>
+        ))}
       </NavLinksContainer>
       <ToggleButton onClick={() => setIsExpanded(!isExpanded)}>
         {isExpanded ? <ChevronBack /> : <ChevronForward />}
