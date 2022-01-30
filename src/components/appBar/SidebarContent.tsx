@@ -80,7 +80,7 @@ const ToggleButton = styled.button`
   }
 `;
 
-export default function NavLinks() {
+export default function SidebarContent() {
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(true);
 

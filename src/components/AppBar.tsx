@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as LogoSvg } from "../assets/images/diplomatic_logo.svg";
 import { auth } from "../firebase";
-import NavLinks from "./appBar/SidebarContent";
+import SidebarContent from "./appBar/SidebarContent";
 
 const Container = styled.div`
   z-index: 100;
@@ -210,7 +210,7 @@ export default function AppBar() {
         initial="initial"
         animate={sideBarControls}
       >
-        <NavLinks />
+        <SidebarContent />
       </Sidebar>
     </Container>
   );
