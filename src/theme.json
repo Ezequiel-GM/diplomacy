@@ -2,6 +2,7 @@
   "borderRadius": {
     "button": 32,
     "card": 24,
+    "navLink": 12,
     "textField": 32
   },
   "boxShadow": {
@@ -18,7 +19,7 @@
     "navLink": "darkgray",
     "onPrimary": "white",
     "onPrimaryDisabled": "gray",
-    "onPrimaryOverlay": "rgba(0, 0, 0, 0.04)",
+    "onPrimaryOverlay": "rgba(0, 0, 0, 0.05)",
     "primary": "#0099CC",
     "primaryDisabled": "#E0E0E0",
     "primaryOverlay": "rgba(255, 255, 255, 0.1)",

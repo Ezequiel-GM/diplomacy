@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { ReactComponent as LogoSvg } from "../assets/images/diplomatic_logo.svg";
 import { auth } from "../firebase";
-import NavLinks from "./appBar/NavLinks";
+import NavLinks from "./appBar/SidebarContent";
 
 const Container = styled.div`
   z-index: 100;
@@ -51,7 +51,7 @@ const Logo = styled(LogoSvg)`
   fill: ${(props) => props.theme.color.primary};
 `;
 
-const NavContainer = styled(motion.nav)`
+const TopLinksContainer = styled(motion.div)`
   height: 100%;
   flex-grow: 1;
   display: flex;
@@ -73,7 +73,9 @@ const Sidebar = styled(motion.div)`
   top: 64px;
   left: 0;
   bottom: 0;
-  width: 244px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   background-color: ${(props) => props.theme.color.onPrimary};
   box-shadow: ${(props) => props.theme.boxShadow.sideBar};
   pointer-events: auto;
@@ -130,6 +132,7 @@ const sideBarVariants = {
     transition: {
       type: "easeIn",
       duration: 0.5,
+      delay: 0.25,
     },
   },
 };
@@ -149,9 +152,9 @@ export default function AppBar() {
   useEffect(() => {
     async function expandAppBar() {
       await appBarControls.start("fullWidth");
+      sideBarControls.start("visible");
       await contentControls.start("expand");
       setIsExpanded(true);
-      await sideBarControls.start("visible");
     }
 
     if (isCentered && user && !loading) {
@@ -185,19 +188,17 @@ export default function AppBar() {
             </Link>
           </LogoContainer>
           {isExpanded && (
-            <NavContainer
+            <TopLinksContainer
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.75 }}
-            >
-              <NavLinks />
-            </NavContainer>
+            ></TopLinksContainer>
           )}
           {isExpanded && (
             <ProfileContainer
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.25, duration: 0.75 }}
+              transition={{ duration: 0.75 }}
             >
               profile
             </ProfileContainer>
@@ -208,7 +209,9 @@ export default function AppBar() {
         variants={sideBarVariants}
         initial="initial"
         animate={sideBarControls}
-      ></Sidebar>
+      >
+        <NavLinks />
+      </Sidebar>
     </Container>
   );
 }
