@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Container = styled(Link)<{ expanded: boolean; matches: number }>`
   padding: 8px;
   margin: 4px 16px;
-  min-width: ${({ expanded }) => (expanded ? "196px" : "0px")};
+  min-width: ${({ expanded }) => (expanded ? "164px" : "0px")};
   transition: 0.5s;
   display: flex;
   flex-direction: row;
@@ -33,8 +33,8 @@ const IconWrapper = styled.div`
 const Label = styled.div<{ expanded: boolean }>`
   margin-left: 48px;
   opacity: ${({ expanded }) => (expanded ? 1 : 0)};
-  transition: opacity 0.25s;
-  transition-delay: ${({ expanded }) => (expanded ? "0.1s" : "0s")};
+  transition: opacity 0.2s;
+  transition-delay: ${({ expanded }) => (expanded ? "0.15s" : "0s")};
   transition-property: opacity;
   position: absolute;
   pointer-events: none;
