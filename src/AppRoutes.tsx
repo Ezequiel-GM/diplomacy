@@ -8,34 +8,53 @@ import Game from "./pages/Game";
 import Games from "./pages/Games";
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
+import Maps from "./pages/Maps";
 import NotFound from "./pages/NotFound";
+
+const RoutesBackground = styled.div<{ authenticated: boolean }>`
+  height: 100%;
+  background-color: ${({ authenticated, theme }) =>
+    authenticated ? theme.color.card : theme.color.primary};
+  transition: background-color 1s;
+`;
 
 export default function AppRoutes() {
   const location = useLocation();
+  const [user, loading] = useAuthState(auth);
 
   return (
-    <AnimatePresence exitBeforeEnter>
-      <Routes location={location}>
-        <Route path="/" element={<Navigate replace to="/games" />} />
-        <Route
-          path="/games"
-          element={
-            <AuthenticatedRoute>
-              <Games />
-            </AuthenticatedRoute>
-          }
-        />
-        <Route
-          path="/game/:gameId"
-          element={
-            <AuthenticatedRoute>
-              <Game />
-            </AuthenticatedRoute>
-          }
-        />
-        <Route element={<NotFound />} />
-      </Routes>
-    </AnimatePresence>
+    <RoutesBackground authenticated={!loading && user}>
+      <AnimatePresence exitBeforeEnter>
+        <Routes location={location}>
+          <Route path="/" element={<Navigate replace to="/games" />} />
+          <Route
+            path="/games"
+            element={
+              <AuthenticatedRoute>
+                <Games />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/game/:gameId"
+            element={
+              <AuthenticatedRoute>
+                <Game />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/maps"
+            element={
+              <AuthenticatedRoute>
+                <Maps />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
+    </RoutesBackground>
   );
 }
 

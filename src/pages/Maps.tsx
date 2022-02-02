@@ -1,5 +1,5 @@
 import PageMotion from "../components/PageMotion";
 
-export default function Games() {
+export default function Maps() {
   return <PageMotion></PageMotion>;
 }
