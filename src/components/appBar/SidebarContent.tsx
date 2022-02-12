@@ -60,8 +60,16 @@ const routes = [
   },
 ];
 
-export default function SidebarContent() {
+interface Props {
+  onChangeExpanded: (expanded: boolean) => void;
+}
+export default function SidebarContent(props: Props) {
   const [isExpanded, setIsExpanded] = useState(true);
+
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+    props.onChangeExpanded(!isExpanded);
+  };
 
   return (
     <Container>
@@ -73,7 +81,7 @@ export default function SidebarContent() {
           </NavLink>
         ))}
       </NavLinksContainer>
-      <ToggleButton onClick={() => setIsExpanded(!isExpanded)}>
+      <ToggleButton onClick={() => toggleExpanded()}>
         {isExpanded ? <ChevronBack /> : <ChevronForward />}
       </ToggleButton>
     </Container>

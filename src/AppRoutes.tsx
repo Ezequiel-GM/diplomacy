@@ -3,6 +3,7 @@ import { PropsWithChildren } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Navigate, Route, Routes, useLocation } from "react-router-dom";
 import styled from "styled-components";
+import PageMotion from "./components/PageMotion";
 import { auth } from "./firebase";
 import Game from "./pages/Game";
 import Games from "./pages/Games";
@@ -18,7 +19,10 @@ const RoutesBackground = styled.div<{ authenticated: boolean }>`
   transition: background-color 1s;
 `;
 
-export default function AppRoutes() {
+interface Props {
+  sideBarExpanded: boolean;
+}
+export default function AppRoutes(props: Props) {
   const location = useLocation();
   const [user, loading] = useAuthState(auth);
 
@@ -30,7 +34,7 @@ export default function AppRoutes() {
           <Route
             path="/games"
             element={
-              <AuthenticatedRoute>
+              <AuthenticatedRoute sideBarExpanded={props.sideBarExpanded}>
                 <Games />
               </AuthenticatedRoute>
             }
@@ -38,7 +42,7 @@ export default function AppRoutes() {
           <Route
             path="/game/:gameId"
             element={
-              <AuthenticatedRoute>
+              <AuthenticatedRoute sideBarExpanded={props.sideBarExpanded}>
                 <Game />
               </AuthenticatedRoute>
             }
@@ -46,7 +50,7 @@ export default function AppRoutes() {
           <Route
             path="/maps"
             element={
-              <AuthenticatedRoute>
+              <AuthenticatedRoute sideBarExpanded={props.sideBarExpanded}>
                 <Maps />
               </AuthenticatedRoute>
             }
@@ -58,37 +62,44 @@ export default function AppRoutes() {
   );
 }
 
-function AuthenticatedRoute(props: PropsWithChildren<{}>): JSX.Element {
+function AuthenticatedRoute(
+  props: PropsWithChildren<{ sideBarExpanded: boolean }>
+): JSX.Element {
   const [user, loading] = useAuthState(auth);
 
   return (
     <AnimatePresence exitBeforeEnter>
       {loading && (
-        <PageExitTransition key="loading">
+        <PageRoute key="loading" sideBarExpanded={props.sideBarExpanded}>
           <Loading />
-        </PageExitTransition>
+        </PageRoute>
       )}
       {user && !loading && (
-        <PageExitTransition key="authenticated">
+        <PageRoute key="authenticated" sideBarExpanded={props.sideBarExpanded}>
           {props.children}
-        </PageExitTransition>
+        </PageRoute>
       )}
       {!user && !loading && (
-        <PageExitTransition key="login">
+        <PageRoute key="login" sideBarExpanded={props.sideBarExpanded}>
           <Login />
-        </PageExitTransition>
+        </PageRoute>
       )}
     </AnimatePresence>
   );
 }
 
-const Transition = styled(motion.div)`
-  height: 100%;
-`;
-function PageExitTransition(props: PropsWithChildren<{}>): JSX.Element {
+function PageRoute(
+  props: PropsWithChildren<{ sideBarExpanded: boolean }>
+): JSX.Element {
+  const Transition = styled(motion.div)`
+    height: 100%;
+  `;
+
   return (
     <Transition exit={{ opacity: 0 }} transition={{ duration: 0.5 }}>
-      {props.children}
+      <PageMotion sideBarExpanded={props.sideBarExpanded}>
+        {props.children}
+      </PageMotion>
     </Transition>
   );
 }

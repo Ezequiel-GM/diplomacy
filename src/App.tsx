@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
 import AppRoutes from "./AppRoutes";
@@ -8,11 +9,15 @@ const AppContainer = styled.div`
 `;
 
 export default function App() {
+  const [sideBarExpanded, setSideBarExpanded] = useState(true);
+
   return (
     <AppContainer>
       <BrowserRouter>
-        <AppBar />
-        <AppRoutes />
+        <AppBar
+          onChangeSideBarExpanded={(expanded) => setSideBarExpanded(expanded)}
+        />
+        <AppRoutes sideBarExpanded={sideBarExpanded} />
       </BrowserRouter>
     </AppContainer>
   );

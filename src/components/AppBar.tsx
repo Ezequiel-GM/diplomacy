@@ -33,7 +33,7 @@ const AppBarShape = styled(motion.div)`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
+  height: ${({ theme }) => theme.size.appBar};
   pointer-events: auto;
 `;
 
@@ -70,7 +70,7 @@ const ProfileContainer = styled(motion.div)`
 const Sidebar = styled(motion.div)`
   position: absolute;
   z-index: 100;
-  top: 64px;
+  top: ${({ theme }) => theme.size.appBar};
   left: 0;
   bottom: 0;
   display: flex;
@@ -137,7 +137,10 @@ const sideBarVariants = {
   },
 };
 
-export default function AppBar() {
+interface Props {
+  onChangeSideBarExpanded: (expanded: boolean) => void;
+}
+export default function AppBar(props: Props) {
   const [user, loading] = useAuthState(auth);
   const appBarControls = useAnimation();
   const contentControls = useAnimation();
@@ -210,7 +213,7 @@ export default function AppBar() {
         initial="initial"
         animate={sideBarControls}
       >
-        <SidebarContent />
+        <SidebarContent onChangeExpanded={props.onChangeSideBarExpanded} />
       </Sidebar>
     </Container>
   );

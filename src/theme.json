@@ -36,5 +36,10 @@
   "padding": {
     "button": 12,
     "card": 32
+  },
+  "size": {
+    "appBar": "64px",
+    "sideBar": "212px",
+    "sideBarCollapsed": "80px"
   }
 }
