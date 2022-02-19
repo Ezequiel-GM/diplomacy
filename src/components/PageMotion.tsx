@@ -15,7 +15,8 @@ const Motion = styled(motion.div)<{ sideBarExpanded: boolean; user: User }>`
   padding-top: ${({ theme, user }) => (!user ? 0 : theme.size.appBar)};
   height: ${({ theme, user }) =>
     !user ? "100%" : `calc(100% - ${theme.size.appBar})`};
-  background-color: ${({ theme }) => theme.color.card};
+  background-color: ${({ theme, user }) =>
+    user ? theme.color.card : theme.color.primary};
 
   transition-delay: 0.5s;
   transition-property: padding-left, padding-top, height;
