@@ -4,8 +4,8 @@ import AppRoutes from "./AppRoutes";
 import AppScaffold from "./components/AppScaffold";
 
 const AppContainer = styled.div`
-  height: 100%;
-  min-height: 600px;
+  height: auto;
+  min-height: 100vh;
 `;
 
 export default function App() {

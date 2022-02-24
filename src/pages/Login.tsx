@@ -11,7 +11,7 @@ const PageMotion = styled(motion.main)`
 `;
 
 const CardsContainer = styled(motion.div)`
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: center;
 
@@ -20,6 +20,7 @@ const CardsContainer = styled(motion.div)`
   padding: 96px 0 32px;
 
   @media (min-width: 768px) {
+    height: 100%;
     flex-direction: row;
     justify-content: center;
     padding: 0;

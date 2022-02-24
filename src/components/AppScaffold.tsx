@@ -8,7 +8,8 @@ import AppBar from "./appScaffold/AppBar";
 import Sidebar from "./appScaffold/Sidebar";
 
 const Scaffold = styled.div<{ user: User }>`
-  height: 100%;
+  height: auto;
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
   background-color: ${({ theme, user }) =>
@@ -30,8 +31,8 @@ const PageContent = styled.main<{
   appBarExpanded: boolean;
   sidebarExpanded: boolean;
 }>`
-  height: 100%;
   flex-grow: 1;
+  min-height: 600px;
 `;
 
 export default function AppScaffold(props: PropsWithChildren<{}>) {
