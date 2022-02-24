@@ -39,7 +39,7 @@
   },
   "size": {
     "appBar": "64px",
-    "sideBar": "212px",
-    "sideBarCollapsed": "80px"
+    "sidebar": "212px",
+    "sidebarCollapsed": "80px"
   }
 }

@@ -2,10 +2,10 @@ import { ReactNode } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 
-const Container = styled(Link)<{ expanded: boolean; matches: number }>`
+const Container = styled(Link)<{ $expanded: boolean; matches: number }>`
   padding: 8px;
   margin: 4px 16px;
-  min-width: ${({ expanded }) => (expanded ? "164px" : "0px")};
+  min-width: ${({ $expanded }) => ($expanded ? "164px" : "0px")};
   transition: 0.5s;
   display: flex;
   flex-direction: row;
@@ -55,7 +55,7 @@ export default function NavLink(props: Props) {
   return (
     <Container
       to={props.to}
-      expanded={props.expanded}
+      $expanded={props.expanded}
       matches={matchesLocation(props.to)}
     >
       <IconWrapper>{props.children}</IconWrapper>
