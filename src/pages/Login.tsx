@@ -10,18 +10,20 @@ const PageMotion = styled(motion.main)`
   height: 100%;
 `;
 
-const Center = styled(motion.div)`
+const CardsContainer = styled(motion.div)`
   height: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
-`;
 
-const CardsPresence = styled(AnimatePresence)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: wrap;
+  flex-direction: column;
+  justify-content: top;
+  padding: 96px 0 32px;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: center;
+    padding: 0;
+  }
 `;
 
 const visibilityVariants = {
@@ -55,8 +57,8 @@ export default function Login() {
       exit="exit"
     >
       <MapBackground>
-        <Center variants={visibilityVariants}>
-          <CardsPresence exitBeforeEnter>
+        <CardsContainer variants={visibilityVariants}>
+          <AnimatePresence exitBeforeEnter>
             {view === "login" && (
               <WelcomeCard
                 key="welcomeCard"
@@ -73,8 +75,8 @@ export default function Login() {
             {view === "register" && (
               <RegisterCard onClickBack={() => setView("login")} />
             )}
-          </CardsPresence>
-        </Center>
+          </AnimatePresence>
+        </CardsContainer>
       </MapBackground>
     </PageMotion>
   );

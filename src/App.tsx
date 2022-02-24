@@ -5,6 +5,7 @@ import AppScaffold from "./components/AppScaffold";
 
 const AppContainer = styled.div`
   height: 100%;
+  min-height: 600px;
 `;
 
 export default function App() {

@@ -7,6 +7,7 @@ const Background = styled.div`
   background: url(${map}) repeat-x;
   animation: slide 300s linear infinite;
   background-position-y: center;
+  background-attachment: fixed;
 
   @keyframes slide {
     0% {
