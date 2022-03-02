@@ -28,6 +28,11 @@ const MenuButton = styled(motion.button)`
   color: ${({ theme }) => theme.color.text};
 `;
 
+const MenuIcon = styled(Menu)`
+  width: 100%;
+  height: 100%;
+`;
+
 const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
   display: flex;
   flex-direction: row;
@@ -140,7 +145,7 @@ export default function AppBar(props: Props) {
           initial="initial"
           animate="visible"
         >
-          <Menu />
+          <MenuIcon />
         </MenuButton>
       )}
       <LogoContainer
