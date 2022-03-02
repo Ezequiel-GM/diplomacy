@@ -2,8 +2,17 @@ import { Link } from "react-router-dom";
 import { AnimationControls, motion } from "framer-motion";
 import styled from "styled-components";
 import { ReactComponent as LogoSvg } from "../../assets/images/diplomatic_logo.svg";
-import { Menu } from "@styled-icons/ionicons-outline";
+import {
+  LogOut,
+  Menu,
+  PersonCircle,
+  Settings,
+} from "@styled-icons/ionicons-outline";
 import { useScreenSize } from "../../hooks/media";
+import DropdownMenu from "../DropdownMenu";
+import DropdownAction from "../DropdownAction";
+import { auth } from "../../firebase";
+import DropdownLink from "../DropdownLink";
 
 const AppBarShape = styled(motion.div)`
   z-index: 100;
@@ -15,6 +24,11 @@ const AppBarShape = styled(motion.div)`
   justify-content: space-between;
   height: ${({ theme }) => theme.size.appBar};
   pointer-events: auto;
+`;
+
+const LeftContainer = styled.div`
+  flex-grow: 1;
+  display: flex;
 `;
 
 const MenuButton = styled(motion.button)`
@@ -39,7 +53,6 @@ const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-right: ${({ expanded }) => (expanded ? "32px" : "0")};
 `;
 
 const Logo = styled(LogoSvg)`
@@ -52,19 +65,26 @@ const Logo = styled(LogoSvg)`
   }
 `;
 
-const TopLinksContainer = styled(motion.div)`
-  height: 100%;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-`;
-
 const ProfileContainer = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+`;
+
+const ProfileIcon = styled(PersonCircle)`
+  width: 32px;
+  height: 32px;
+`;
+
+const SettingsIcon = styled(Settings)`
+  width: 28px;
+  height: 28px;
+`;
+
+const LogOutIcon = styled(LogOut)`
+  width: 28px;
+  height: 28px;
 `;
 
 const appBarVariants = {
@@ -114,6 +134,10 @@ const menuButtonVariants = {
 const logoVariants = {
   initial: {
     flexGrow: 1,
+    transition: {
+      type: "easeIn",
+      duration: 0.75,
+    },
   },
   expand: {
     flexGrow: 0.001,
@@ -139,40 +163,47 @@ export default function AppBar(props: Props) {
       initial="initial"
       animate={props.shapeControls}
     >
-      {isSmall && props.isExpanded && (
-        <MenuButton
-          onClick={() => props.onToggleSidebar()}
-          variants={menuButtonVariants}
+      <LeftContainer>
+        {isSmall && props.isExpanded && (
+          <MenuButton
+            onClick={() => props.onToggleSidebar()}
+            variants={menuButtonVariants}
+            initial="initial"
+            animate="visible"
+          >
+            <MenuIcon />
+          </MenuButton>
+        )}
+        <LogoContainer
+          variants={logoVariants}
           initial="initial"
-          animate="visible"
+          animate={props.contentControls}
+          expanded={props.isExpanded}
         >
-          <MenuIcon />
-        </MenuButton>
-      )}
-      <LogoContainer
-        variants={logoVariants}
-        initial="initial"
-        animate={props.contentControls}
-        expanded={props.isExpanded}
-      >
-        <Link to="/games">
-          <Logo />
-        </Link>
-      </LogoContainer>
-      {props.isExpanded && (
-        <TopLinksContainer
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.75 }}
-        ></TopLinksContainer>
-      )}
+          <Link to="/games">
+            <Logo />
+          </Link>
+        </LogoContainer>
+      </LeftContainer>
+
       {props.isExpanded && (
         <ProfileContainer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.75 }}
         >
-          profile
+          <DropdownMenu button={<ProfileIcon />}>
+            <DropdownLink
+              icon={<SettingsIcon />}
+              label="Settings"
+              to="/settings"
+            />
+            <DropdownAction
+              icon={<LogOutIcon />}
+              label="Sign Out"
+              onClick={() => auth.signOut()}
+            />
+          </DropdownMenu>
         </ProfileContainer>
       )}
     </AppBarShape>
