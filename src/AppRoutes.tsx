@@ -68,12 +68,12 @@ function AuthenticatedRoute(props: PropsWithChildren<{}>): JSX.Element {
           <Loading />
         </PageRoute>
       )}
-      {user && (
+      {!loading && user && (
         <PageRoute key="authenticated">
           <TopPadding>{props.children}</TopPadding>
         </PageRoute>
       )}
-      {!user && !loading && (
+      {!loading && !user && (
         <PageRoute key="login">
           <Login />
         </PageRoute>

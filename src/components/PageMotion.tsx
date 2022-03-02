@@ -5,9 +5,9 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "styled-components";
 import { auth } from "../firebase";
 
-const Motion = styled(motion.div)<{ user: User }>`
-  background-color: ${({ theme, user }) =>
-    user ? theme.color.card : theme.color.primary};
+const Motion = styled(motion.div)<{ authenticated: User }>`
+  background-color: ${({ theme, authenticated }) =>
+    authenticated ? theme.color.card : theme.color.primary};
   height: 100%;
 
   transition-delay: 0.5s;
@@ -28,14 +28,14 @@ const visibilityVariants = {
 };
 
 export default function PageMotion(props: PropsWithChildren<{}>) {
-  const [user] = useAuthState(auth);
+  const [user, loading] = useAuthState(auth);
 
   return (
     <Motion
       variants={visibilityVariants}
       initial="hidden"
       animate="visible"
-      user={user}
+      authenticated={user && !loading}
     >
       {props.children}
     </Motion>
