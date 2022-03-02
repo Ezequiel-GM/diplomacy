@@ -19,6 +19,7 @@ const AppBarShape = styled(motion.div)`
 
 const MenuButton = styled(motion.button)`
   height: 32px;
+  padding: 0;
   border: none;
   border-radius: 100%;
   background-color: transparent;
