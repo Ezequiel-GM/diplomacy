@@ -69,6 +69,9 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
 
     if (isCentered && user && !loading) {
       expandAppBar();
+    } else {
+      appBarShapeControls.start("center").then(() => setIsCentered(true));
+      setIsAppBarExpanded(false);
     }
   }, [
     appBarShapeControls,
@@ -83,6 +86,8 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
     console.log("hey");
     if (user) {
       setTimeout(() => setIsSidebarVisible(true), 500);
+    } else {
+      setIsSidebarVisible(false);
     }
   }, [user, setIsSidebarVisible]);
 
