@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { AnimationControls, motion } from "framer-motion";
 import styled from "styled-components";
 import { ReactComponent as LogoSvg } from "../../assets/images/diplomatic_logo.svg";
+import { Menu } from "@styled-icons/ionicons-outline";
+import { useScreenSize } from "../../hooks/media";
 
 const AppBarShape = styled(motion.div)`
   z-index: 100;
@@ -15,6 +17,16 @@ const AppBarShape = styled(motion.div)`
   pointer-events: auto;
 `;
 
+const MenuButton = styled(motion.button)`
+  height: 32px;
+  border: none;
+  border-radius: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
   display: flex;
   flex-direction: row;
@@ -25,8 +37,12 @@ const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
 
 const Logo = styled(LogoSvg)`
   margin-top: 8px;
-  width: 180px;
+  width: 140px;
   fill: ${(props) => props.theme.color.primary};
+
+  @media (min-width: 768px) {
+    width: 180px;
+  }
 `;
 
 const TopLinksContainer = styled(motion.div)`
@@ -42,7 +58,6 @@ const ProfileContainer = styled(motion.div)`
   flex-direction: row;
   align-items: center;
   justify-content: flex-end;
-  width: 200px;
 `;
 
 const appBarVariants = {
@@ -74,6 +89,21 @@ const appBarVariants = {
   },
 };
 
+const menuButtonVariants = {
+  initial: {
+    width: "0px",
+    marginRight: "-8px",
+  },
+  visible: {
+    width: "32px",
+    marginRight: "16px",
+    transition: {
+      type: "easeIn",
+      duration: 0.75,
+    },
+  },
+};
+
 const logoVariants = {
   initial: {
     flexGrow: 1,
@@ -91,14 +121,27 @@ interface Props {
   shapeControls: AnimationControls;
   contentControls: AnimationControls;
   isExpanded: boolean;
+  onToggleSidebar: () => void;
 }
 export default function AppBar(props: Props) {
+  const isSmall = useScreenSize("small");
+
   return (
     <AppBarShape
       variants={appBarVariants}
       initial="initial"
       animate={props.shapeControls}
     >
+      {isSmall && props.isExpanded && (
+        <MenuButton
+          onClick={() => props.onToggleSidebar()}
+          variants={menuButtonVariants}
+          initial="initial"
+          animate="visible"
+        >
+          <Menu />
+        </MenuButton>
+      )}
       <LogoContainer
         variants={logoVariants}
         initial="initial"

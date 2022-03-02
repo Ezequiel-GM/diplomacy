@@ -27,10 +27,20 @@ const AppBarContainer = styled.header`
   justify-content: center;
 `;
 
-const PageContent = styled.main<{
-  appBarExpanded: boolean;
-  sidebarExpanded: boolean;
-}>`
+const SidebarOverlay = styled.div<{ sidebarOpened: boolean }>`
+  z-index: 50;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: black;
+  pointer-events: ${({ sidebarOpened }) => (sidebarOpened ? "auto" : "none")};
+  opacity: ${({ sidebarOpened }) => (sidebarOpened ? 0.1 : 0)};
+  transition: opacity 0.5s;
+`;
+
+const PageContent = styled.main`
   flex-grow: 1;
   min-height: 600px;
 `;
@@ -43,7 +53,7 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
   const [isCentered, setIsCentered] = useState(false);
   const [isAppBarExpanded, setIsAppBarExpanded] = useState(false);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const [isSidebarOpened, setIsSidebarOpened] = useState(false);
 
   useEffect(() => {
     appBarShapeControls.start("center").then(() => setIsCentered(true));
@@ -52,7 +62,7 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
   useEffect(() => {
     async function expandAppBar() {
       await appBarShapeControls.start("fullWidth");
-      sidebarControls.start("visible");
+      sidebarControls.start("loaded");
       await appBarContentControls.start("expand");
       setIsAppBarExpanded(true);
     }
@@ -83,20 +93,17 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
           shapeControls={appBarShapeControls}
           contentControls={appBarContentControls}
           isExpanded={isAppBarExpanded}
+          onToggleSidebar={() => setIsSidebarOpened((open) => !open)}
         />
       </AppBarContainer>
       {isSidebarVisible && (
-        <Sidebar
-          controls={sidebarControls}
-          onChangeExpanded={(expanded) => setIsSidebarExpanded(expanded)}
-        />
+        <Sidebar controls={sidebarControls} isOpened={isSidebarOpened} />
       )}
-      <PageContent
-        appBarExpanded={isAppBarExpanded}
-        sidebarExpanded={isSidebarExpanded}
-      >
-        {props.children}
-      </PageContent>
+      <SidebarOverlay
+        sidebarOpened={isSidebarOpened}
+        onClick={() => setIsSidebarOpened(false)}
+      />
+      <PageContent>{props.children}</PageContent>
     </Scaffold>
   );
 }

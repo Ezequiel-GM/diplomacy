@@ -6,13 +6,16 @@ import {
   Map,
 } from "@styled-icons/ionicons-outline";
 import { AnimationControls, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useScreenSize } from "../../hooks/media";
 import NavLink from "./NavLink";
 import NavLinkBackground from "./NavLinkBackground";
 
 const SidebarShape = styled(motion.div)`
-  position: relative;
+  position: absolute;
+  top: 0;
+  bottom: 0;
   z-index: 100;
   margin-top: ${({ theme }) => theme.size.appBar};
   display: flex;
@@ -21,6 +24,10 @@ const SidebarShape = styled(motion.div)`
   background-color: ${(props) => props.theme.color.onPrimary};
   box-shadow: ${(props) => props.theme.boxShadow.sideBar};
   pointer-events: auto;
+
+  @media (min-width: 768px) {
+    position: relative;
+  }
 `;
 
 const SidebarContent = styled.div`
@@ -55,11 +62,31 @@ const ToggleButton = styled.button`
   }
 `;
 
-const sidebarVariants = {
+const smallSidebarVariants = {
   initial: {
     x: -244,
   },
-  visible: {
+  loaded: {
+    x: -244,
+    transition: {
+      type: "easeIn",
+      duration: 0.5,
+    },
+  },
+  opened: {
+    x: 0,
+    transition: {
+      type: "easeIn",
+      duration: 0.5,
+    },
+  },
+};
+
+const mediumSidebarVariants = {
+  initial: {
+    x: -244,
+  },
+  loaded: {
     x: 0,
     transition: {
       type: "easeIn",
@@ -89,19 +116,23 @@ const routes = [
 
 interface Props {
   controls: AnimationControls;
-  onChangeExpanded: (expanded: boolean) => void;
+  isOpened: boolean;
 }
 export default function Sidebar(props: Props) {
   const [isExpanded, setIsExpanded] = useState(true);
+  const isMedium = useScreenSize("medium");
 
-  const toggleExpanded = () => {
-    props.onChangeExpanded(!isExpanded);
-    setIsExpanded(!isExpanded);
-  };
+  useEffect(() => {
+    props.controls.start("loaded").then(() => setIsExpanded(true));
+  }, [props.controls, setIsExpanded, isMedium]);
+
+  useEffect(() => {
+    props.controls.start(props.isOpened ? "opened" : "loaded");
+  }, [props.controls, props.isOpened]);
 
   return (
     <SidebarShape
-      variants={sidebarVariants}
+      variants={isMedium ? mediumSidebarVariants : smallSidebarVariants}
       initial="initial"
       animate={props.controls}
     >
@@ -119,9 +150,11 @@ export default function Sidebar(props: Props) {
             </NavLink>
           ))}
         </NavLinksContainer>
-        <ToggleButton onClick={() => toggleExpanded()}>
-          {isExpanded ? <ChevronBack /> : <ChevronForward />}
-        </ToggleButton>
+        {isMedium && (
+          <ToggleButton onClick={() => setIsExpanded((e) => !e)}>
+            {isExpanded ? <ChevronBack /> : <ChevronForward />}
+          </ToggleButton>
+        )}
       </SidebarContent>
     </SidebarShape>
   );
