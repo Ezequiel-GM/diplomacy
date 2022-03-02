@@ -99,7 +99,7 @@ const appBarVariants = {
 const menuButtonVariants = {
   initial: {
     width: "0px",
-    marginRight: "-8px",
+    marginRight: "0px",
   },
   visible: {
     width: "32px",
