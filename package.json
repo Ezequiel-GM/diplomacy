@@ -34,7 +34,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "npx prettier --check .",
-    "format": "npx prettier --write ."
+    "format": "npx prettier --write .",
+    "deploy": "yarn build; scp -r build diplomaticgame.com:dip/client; rm -r build"
   },
   "eslintConfig": {
     "extends": [
