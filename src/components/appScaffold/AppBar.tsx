@@ -25,6 +25,7 @@ const MenuButton = styled(motion.button)`
   display: flex;
   justify-content: center;
   align-items: center;
+  color: ${({ theme }) => theme.color.text};
 `;
 
 const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
