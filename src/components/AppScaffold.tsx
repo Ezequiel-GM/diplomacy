@@ -95,7 +95,7 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
     } else {
       sidebarControls.start("initial").then(() => setIsSidebarVisible(false));
     }
-  }, [user, setIsSidebarVisible]);
+  }, [user, sidebarControls, setIsSidebarVisible]);
 
   return (
     <Scaffold user={user}>
