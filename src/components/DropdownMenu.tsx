@@ -41,31 +41,22 @@ interface Props {
 }
 export default function DropdownMenu(props: PropsWithChildren<Props>) {
   const [isOpen, setIsOpen] = useState(false);
-  const buttonRef = useRef<any>(null);
   const modalRef = useRef<any>(null);
 
   useEffect(() => {
-    function handleClick(event: MouseEvent) {
-      if (
-        modalRef.current &&
-        !modalRef.current.contains(event.target) &&
-        buttonRef.current &&
-        !buttonRef.current.contains(event.target)
-      ) {
-        setIsOpen(false);
-      }
+    function handleClick() {
+      setIsOpen(false);
     }
-    document.addEventListener("mousedown", handleClick);
 
-    return () => document.removeEventListener("mousedown", handleClick);
-  }, []);
+    if (isOpen) {
+      document.addEventListener("click", handleClick);
+      return () => document.removeEventListener("click", handleClick);
+    }
+  }, [isOpen]);
 
   return (
     <Wrapper>
-      <DropdownButton
-        onClick={() => setIsOpen((open) => !open)}
-        ref={buttonRef}
-      >
+      <DropdownButton onClick={() => setIsOpen((open) => !open)}>
         {props.button}
         <Chevron />
       </DropdownButton>

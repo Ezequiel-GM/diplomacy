@@ -114,6 +114,13 @@ const appBarVariants = {
       duration: 0.75,
     },
   },
+  hidden: {
+    y: -100,
+    transition: {
+      type: "easeOut",
+      duration: 0.75,
+    },
+  },
 };
 
 const menuButtonVariants = {

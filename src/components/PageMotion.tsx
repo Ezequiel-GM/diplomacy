@@ -6,12 +6,7 @@ import styled from "styled-components";
 import { auth } from "../firebase";
 
 const Motion = styled(motion.div)<{ authenticated: User }>`
-  background-color: ${({ theme, authenticated }) =>
-    authenticated ? theme.color.card : theme.color.primary};
   height: 100%;
-
-  transition-delay: 0.5s;
-  transition-property: padding-left, padding-top, height;
 `;
 
 const visibilityVariants = {
@@ -28,14 +23,14 @@ const visibilityVariants = {
 };
 
 export default function PageMotion(props: PropsWithChildren<{}>) {
-  const [user, loading] = useAuthState(auth);
+  const [user] = useAuthState(auth);
 
   return (
     <Motion
       variants={visibilityVariants}
       initial="hidden"
       animate="visible"
-      authenticated={user && !loading}
+      authenticated={user}
     >
       {props.children}
     </Motion>

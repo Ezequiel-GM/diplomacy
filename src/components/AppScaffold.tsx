@@ -67,20 +67,23 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
       setIsAppBarExpanded(true);
     }
     async function collapseAppBar() {
+      await appBarShapeControls.start("hidden");
       setIsAppBarExpanded(false);
       await appBarContentControls.start("initial");
+      await appBarShapeControls.start("initial");
       appBarShapeControls.start("center");
     }
 
     if (user && !loading) {
-      if (isCentered) expandAppBar();
+      if (isCentered && !isAppBarExpanded) expandAppBar();
     } else {
-      collapseAppBar();
+      if (isAppBarExpanded) collapseAppBar();
     }
   }, [
     appBarShapeControls,
     appBarContentControls,
     sidebarControls,
+    isAppBarExpanded,
     isCentered,
     user,
     loading,
@@ -90,7 +93,7 @@ export default function AppScaffold(props: PropsWithChildren<{}>) {
     if (user) {
       setTimeout(() => setIsSidebarVisible(true), 500);
     } else {
-      setIsSidebarVisible(false);
+      sidebarControls.start("initial").then(() => setIsSidebarVisible(false));
     }
   }, [user, setIsSidebarVisible]);
 

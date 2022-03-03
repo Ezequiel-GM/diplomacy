@@ -8,5 +8,5 @@ const Wrapper = styled.div`
 `;
 
 export default function Loading() {
-  return <Wrapper></Wrapper>;
+  return <Wrapper>Loading...</Wrapper>;
 }
