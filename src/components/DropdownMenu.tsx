@@ -30,10 +30,13 @@ const Chevron = styled(ChevronDown)`
 const MenuModal = styled.div`
   position: absolute;
   white-space: nowrap;
+  padding: 4px;
   right: 0;
+  top: 40px;
   min-width: 120px;
   background-color: ${({ theme }) => theme.color.card};
   box-shadow: ${({ theme }) => theme.boxShadow.modal};
+  border-radius: ${({ theme }) => theme.borderRadius.modal}px;
 `;
 
 interface Props {

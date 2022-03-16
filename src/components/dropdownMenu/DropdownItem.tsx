@@ -2,7 +2,8 @@ import { ReactChild } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding: 12px;
+  padding: 8px;
+  border-radius: ${({ theme }) => theme.borderRadius.modalInner}px;
   display: flex;
   align-items: center;
   cursor: pointer;
