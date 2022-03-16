@@ -27,7 +27,8 @@
     "primaryDisabled": "#E0E0E0",
     "primaryOverlay": "rgba(255, 255, 255, 0.1)",
     "text": "black",
-    "textDisabled": "gray"
+    "textDisabled": "gray",
+    "textLight": "darkgray"
   },
   "fontSize": {
     "button": 11,

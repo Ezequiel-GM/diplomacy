@@ -15,7 +15,7 @@ const Container = styled(Link)<{ $expanded: boolean; matches: number }>`
   font-weight: bold;
   font-size: ${({ theme }) => `${theme.fontSize.navLink}pt`};
   color: ${({ matches, theme }) =>
-    matches ? theme.color.onPrimary : theme.color.navLink};
+    matches ? theme.color.onPrimary : theme.color.textLight};
   border-radius: ${({ theme }) => `${theme.borderRadius.navLink}px`};
 
   &:hover {

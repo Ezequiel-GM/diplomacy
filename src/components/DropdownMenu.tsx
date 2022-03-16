@@ -13,15 +13,22 @@ const Wrapper = styled.div`
 `;
 
 const DropdownButton = styled.button`
-  display: flex;
+  display: block;
   align-items: center;
-  height: 32px;
+  height: 44px;
   margin: 0;
-  padding: 0;
+  padding: 6px;
   background-color: transparent;
   border: none;
-  color: gray;
+  border-radius: ${({ theme }) => theme.borderRadius.button}px;
+  color: ${({ theme }) => theme.color.textLight};
   cursor: pointer;
+
+  &:hover {
+    color: ${({ theme }) => theme.color.text};
+    background-color: ${({ theme }) => theme.color.onPrimaryOverlay};
+  }
+  transition: 0.5s;
 `;
 
 const Chevron = styled(ChevronDown)`
