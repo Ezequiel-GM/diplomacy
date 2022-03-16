@@ -11,6 +11,7 @@ import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import Maps from "./pages/Maps";
 import NotFound from "./pages/NotFound";
+import Sandboxes from "./pages/Sandboxes";
 import Settings from "./pages/Settings";
 
 const RoutesContainer = styled.div`
@@ -38,6 +39,14 @@ export default function AppRoutes() {
             element={
               <AuthenticatedRoute>
                 <Game />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/sandboxes"
+            element={
+              <AuthenticatedRoute>
+                <Sandboxes />
               </AuthenticatedRoute>
             }
           />
