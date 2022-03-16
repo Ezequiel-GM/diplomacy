@@ -11,6 +11,7 @@ import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import Maps from "./pages/Maps";
 import NotFound from "./pages/NotFound";
+import Sandbox from "./pages/Sandbox";
 import Sandboxes from "./pages/Sandboxes";
 import Settings from "./pages/Settings";
 
@@ -47,6 +48,14 @@ export default function AppRoutes() {
             element={
               <AuthenticatedRoute>
                 <Sandboxes />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/sandbox/:sandboxId"
+            element={
+              <AuthenticatedRoute>
+                <Sandbox />
               </AuthenticatedRoute>
             }
           />
