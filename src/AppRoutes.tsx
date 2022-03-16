@@ -11,6 +11,7 @@ import Loading from "./pages/Loading";
 import Login from "./pages/Login";
 import Maps from "./pages/Maps";
 import NotFound from "./pages/NotFound";
+import Settings from "./pages/Settings";
 
 const RoutesContainer = styled.div`
   height: 100%;
@@ -45,6 +46,14 @@ export default function AppRoutes() {
             element={
               <AuthenticatedRoute>
                 <Maps />
+              </AuthenticatedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <AuthenticatedRoute>
+                <Settings />
               </AuthenticatedRoute>
             }
           />
