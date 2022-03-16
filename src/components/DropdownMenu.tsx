@@ -14,6 +14,7 @@ const Wrapper = styled.div`
 
 const DropdownButton = styled.button`
   display: flex;
+  align-items: center;
   height: 32px;
   margin: 0;
   padding: 0;

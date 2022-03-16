@@ -29,6 +29,7 @@ const AppBarShape = styled(motion.div)`
 const LeftContainer = styled.div`
   flex-grow: 1;
   display: flex;
+  align-items: center;
 `;
 
 const MenuButton = styled(motion.button)`
