@@ -3,7 +3,9 @@ import { useEffect, useState } from "react";
 type ScreenSize = "small" | "medium";
 
 export function useScreenSize(size: ScreenSize): boolean {
-  const [matches, setMatches] = useState(true);
+  const [matches, setMatches] = useState(
+    window.matchMedia(getMediaQuery(size)).matches
+  );
 
   useEffect(() => {
     const media = window.matchMedia(getMediaQuery(size));
