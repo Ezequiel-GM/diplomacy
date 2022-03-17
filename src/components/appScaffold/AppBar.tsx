@@ -13,6 +13,7 @@ import DropdownMenu from "../DropdownMenu";
 import DropdownAction from "../DropdownAction";
 import { auth } from "../../firebase";
 import DropdownLink from "../DropdownLink";
+import ButtonRouter from "./ButtonRouter";
 
 const AppBarShape = styled(motion.div)`
   z-index: 100;
@@ -33,7 +34,6 @@ const LeftContainer = styled.div`
 `;
 
 const MenuButton = styled(motion.button)`
-  height: 32px;
   padding: 0;
   border: none;
   border-radius: 100%;
@@ -58,7 +58,7 @@ const LogoContainer = styled(motion.div)<{ expanded: boolean }>`
 
 const Logo = styled(LogoSvg)`
   margin-top: 8px;
-  width: 140px;
+  width: 120px;
   fill: ${(props) => props.theme.color.primary};
 
   @media (min-width: 768px) {
@@ -66,7 +66,7 @@ const Logo = styled(LogoSvg)`
   }
 `;
 
-const ProfileContainer = styled(motion.div)`
+const ButtonsContainer = styled(motion.div)`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -74,18 +74,23 @@ const ProfileContainer = styled(motion.div)`
 `;
 
 const ProfileIcon = styled(PersonCircle)`
-  width: 32px;
-  height: 32px;
+  width: ${({ theme }) => theme.size.icon.small};
+  height: ${({ theme }) => theme.size.icon.small};
+
+  @media (min-width: 768px) {
+    width: ${({ theme }) => theme.size.icon.medium};
+    height: ${({ theme }) => theme.size.icon.medium};
+  }
 `;
 
 const SettingsIcon = styled(Settings)`
-  width: 28px;
-  height: 28px;
+  width: ${({ theme }) => theme.size.icon.small};
+  height: ${({ theme }) => theme.size.icon.small};
 `;
 
 const LogOutIcon = styled(LogOut)`
-  width: 28px;
-  height: 28px;
+  width: ${({ theme }) => theme.size.icon.small};
+  height: ${({ theme }) => theme.size.icon.small};
 `;
 
 const appBarVariants = {
@@ -131,7 +136,7 @@ const menuButtonVariants = {
   },
   visible: {
     width: "32px",
-    marginRight: "16px",
+    marginRight: "12px",
     transition: {
       type: "easeIn",
       duration: 0.75,
@@ -193,14 +198,14 @@ export default function AppBar(props: Props) {
           </Link>
         </LogoContainer>
       </LeftContainer>
-
       {props.isExpanded && (
-        <ProfileContainer
+        <ButtonsContainer
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.75 }}
         >
-          <DropdownMenu button={<ProfileIcon />}>
+          <ButtonRouter />
+          <DropdownMenu button={<ProfileIcon />} hideChevron={isSmall}>
             <DropdownLink
               icon={<SettingsIcon />}
               label="Settings"
@@ -212,7 +217,7 @@ export default function AppBar(props: Props) {
               onClick={() => auth.signOut()}
             />
           </DropdownMenu>
-        </ProfileContainer>
+        </ButtonsContainer>
       )}
     </AppBarShape>
   );

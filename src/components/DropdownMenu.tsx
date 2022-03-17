@@ -49,6 +49,7 @@ const MenuModal = styled.div`
 
 interface Props {
   button: ReactChild;
+  hideChevron?: boolean;
 }
 export default function DropdownMenu(props: PropsWithChildren<Props>) {
   const [isOpen, setIsOpen] = useState(false);
@@ -69,7 +70,7 @@ export default function DropdownMenu(props: PropsWithChildren<Props>) {
     <Wrapper>
       <DropdownButton onClick={() => setIsOpen((open) => !open)}>
         {props.button}
-        <Chevron />
+        {!props.hideChevron && <Chevron />}
       </DropdownButton>
       {isOpen && <MenuModal ref={modalRef}>{props.children}</MenuModal>}
     </Wrapper>

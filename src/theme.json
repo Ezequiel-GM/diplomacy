@@ -31,6 +31,7 @@
     "textLight": "darkgray"
   },
   "fontSize": {
+    "appBarButton": 12,
     "button": 11,
     "navLink": 12,
     "textField": 12,
@@ -44,6 +45,10 @@
   "size": {
     "appBar": "64px",
     "sidebar": "212px",
-    "sidebarCollapsed": "80px"
+    "sidebarCollapsed": "80px",
+    "icon": {
+      "small": "28px",
+      "medium": "32px"
+    }
   }
 }

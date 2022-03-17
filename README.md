@@ -6,4 +6,4 @@ As a passion project of mine, this app is very much still in progress. The somew
 
 ## What is Diplomacy?
 
-If you're curious as to what Diplomacy is, check out its [Wikipedia page](https://en.wikipedia.org/wiki/Diplomacy_(game)).
+If you're curious as to what Diplomacy is, check out its [Wikipedia page](<https://en.wikipedia.org/wiki/Diplomacy_(game)>).
