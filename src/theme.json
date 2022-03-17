@@ -19,6 +19,7 @@
     "borderDisabled": "gray",
     "card": "white",
     "error": "red",
+    "modalOverlay": "rgba(0, 0, 0, 0.1)",
     "navLink": "darkgray",
     "onPrimary": "white",
     "onPrimaryDisabled": "gray",

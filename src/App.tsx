@@ -1,3 +1,4 @@
+import ReactModal from "react-modal";
 import { BrowserRouter } from "react-router-dom";
 import styled from "styled-components";
 import AppRoutes from "./AppRoutes";
@@ -9,6 +10,8 @@ const AppContainer = styled.div`
 `;
 
 export default function App() {
+  ReactModal.setAppElement("#root");
+
   return (
     <AppContainer>
       <BrowserRouter>
