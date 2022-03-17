@@ -3,7 +3,7 @@
     "button": 32,
     "card": 24,
     "modal": 12,
-    "modalInner": 10,
+    "modalInner": 8,
     "navLink": 12,
     "textField": 32
   },
