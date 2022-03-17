@@ -22,7 +22,7 @@ const Container = styled.button<{ isSmall: boolean }>`
 `;
 
 const Label = styled.span`
-  margin: 2px 4px 0;
+  margin: 0 4px 0;
   font-size: ${({ theme }) => theme.fontSize.appBarButton}pt;
   font-weight: bold;
 `;
