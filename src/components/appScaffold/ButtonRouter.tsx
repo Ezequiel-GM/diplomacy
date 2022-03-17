@@ -47,6 +47,7 @@ export default function ButtonRouter() {
           </>
         }
       />
+      <Route path="*" element={null} />
     </Routes>
   );
 }
