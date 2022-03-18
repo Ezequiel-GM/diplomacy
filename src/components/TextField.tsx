@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 
 const Label = styled.label<{ disabled?: boolean }>`
   display: block;
-  margin: 0 12px 2px;
+  margin: 0 0 2px;
   font-size: ${(props) => `${props.theme.fontSize.textFieldLabel}pt`};
   color: ${({ disabled, theme }) =>
     disabled ? theme.color.textDisabled : theme.color.text};
