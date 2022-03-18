@@ -19,6 +19,11 @@ const Container = styled.button<{ isSmall: boolean }>`
     background-color: ${({ theme }) => theme.color.onPrimaryOverlay};
   }
   transition: color 0.5s, background-color 0.5s;
+
+  &:active {
+    transform: translateY(2px);
+  }
+  transition: transform 0.2s;
 `;
 
 const Label = styled.span`
