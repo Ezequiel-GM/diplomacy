@@ -1,5 +1,8 @@
+import { Point } from "./Point";
+
 type NationId = string;
 type RegionId = string;
+type RegionType = "land" | "sea";
 type SubRegionId = string;
 
 export interface Variant {
@@ -25,20 +28,24 @@ export interface Variant {
   regions: {
     [regionId: RegionId]: {
       name: string;
-      shapes: {
-        x: number;
-        y: number;
-      }[][];
+      shape: Point[];
       subRegions?: {
         [subRegionId: SubRegionId]: {
           name: string;
-          shapes: {
-            x: number;
-            y: number;
-          }[][];
+          shape: Point[];
+          troopLocation: Point;
         };
       };
-      type: "land" | "sea";
+      type: RegionType;
+      visuals?: {
+        supplyCenterLocation?: Point;
+        troopLocation?: Point;
+        overlays?: {
+          border: boolean;
+          shape: Point[];
+          type: RegionType;
+        }[];
+      };
     };
   };
   supplyCenters: {
