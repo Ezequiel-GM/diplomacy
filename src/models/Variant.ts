@@ -1,6 +1,7 @@
 import { Point } from "./Point";
 
 type NationId = string;
+type OverlayFill = "land" | "sea";
 type RegionId = string;
 type RegionType = "land" | "sea" | "archipelago";
 type SubRegionId = string;
@@ -33,17 +34,21 @@ export interface Variant {
         [subRegionId: SubRegionId]: {
           name: string;
           shape: Point[];
-          troopLocation: Point;
+          visuals: {
+            labelLocation: Point;
+            troopLocation: Point;
+          };
         };
       };
       type: RegionType;
-      visuals?: {
+      visuals: {
+        labelLocation: Point;
         supplyCenterLocation?: Point;
-        troopLocation?: Point;
+        troopLocation: Point;
         overlays?: {
           border: boolean;
+          fill: OverlayFill;
           shape: Point[];
-          type: RegionType;
         }[];
       };
     };
