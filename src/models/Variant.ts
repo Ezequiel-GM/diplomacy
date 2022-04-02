@@ -2,7 +2,7 @@ import { Point } from "./Point";
 
 type NationId = string;
 type RegionId = string;
-type RegionType = "land" | "sea";
+type RegionType = "land" | "sea" | "archipelago";
 type SubRegionId = string;
 
 export interface Variant {
