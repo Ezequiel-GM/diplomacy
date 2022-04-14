@@ -7,7 +7,7 @@ import { auth } from "../firebase";
 import AppBar from "./appScaffold/AppBar";
 import Sidebar from "./appScaffold/Sidebar";
 
-const Scaffold = styled.div<{ user: User }>`
+const Scaffold = styled.div<{ user: User | null | undefined }>`
   height: auto;
   min-height: 100vh;
   display: flex;
