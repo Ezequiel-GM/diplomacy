@@ -27,31 +27,7 @@ export interface Variant {
     };
   };
   regions: {
-    [regionId: RegionId]: {
-      name: string;
-      shape: Point[];
-      subRegions?: {
-        [subRegionId: SubRegionId]: {
-          name: string;
-          shape: Point[];
-          visuals: {
-            labelLocation: Point;
-            troopLocation: Point;
-          };
-        };
-      };
-      type: RegionType;
-      visuals: {
-        labelLocation: Point;
-        supplyCenterLocation?: Point;
-        troopLocation: Point;
-        overlays?: {
-          border: boolean;
-          fill: OverlayFill;
-          shape: Point[];
-        }[];
-      };
-    };
+    [regionId: RegionId]: Region;
   };
   supplyCenters: {
     [regionId: RegionId]: NationId | "none";
@@ -62,4 +38,30 @@ export interface Variant {
     };
   };
   year: number;
+}
+
+export interface Region {
+  name: string;
+  shape: Point[];
+  subRegions?: {
+    [subRegionId: SubRegionId]: {
+      name: string;
+      shape: Point[];
+      visuals: {
+        labelLocation: Point;
+        troopLocation: Point;
+      };
+    };
+  };
+  type: RegionType;
+  visuals: {
+    labelLocation: Point;
+    supplyCenterLocation?: Point;
+    troopLocation: Point;
+    overlays?: {
+      border: boolean;
+      fill: OverlayFill;
+      shape: Point[];
+    }[];
+  };
 }

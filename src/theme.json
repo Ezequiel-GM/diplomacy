@@ -20,6 +20,7 @@
     "borderDisabled": "gray",
     "card": "white",
     "error": "red",
+    "land": "#E5D1B5",
     "modalOverlay": "rgba(0, 0, 0, 0.1)",
     "navLink": "darkgray",
     "onPrimary": "white",
@@ -28,6 +29,7 @@
     "primary": "#0099CC",
     "primaryDisabled": "#E0E0E0",
     "primaryOverlay": "rgba(255, 255, 255, 0.1)",
+    "sea": "#1795D1",
     "text": "black",
     "textDisabled": "gray",
     "textLight": "darkgray"
