@@ -1,5 +1,5 @@
 import { Variant } from "../models/Variant";
-import { collection, doc, getDoc, query, where } from "firebase/firestore";
+import { collection, doc, query, where } from "firebase/firestore";
 import { useCollection, useDocumentData } from "react-firebase-hooks/firestore";
 import { firestore } from "../firebase";
 import { FirebaseError } from "firebase/app";
