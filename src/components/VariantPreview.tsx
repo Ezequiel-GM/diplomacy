@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled from "styled-components";
 import { Point } from "../models/Point";
-import { Region, Variant } from "../models/Variant";
+import { Variant } from "../models/Variant";
 
 const Container = styled.div<{ width?: string }>`
   width: ${({ width }) => width || "100%"};
