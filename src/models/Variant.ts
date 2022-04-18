@@ -58,10 +58,12 @@ export interface Region {
     labelLocation: Point;
     supplyCenterLocation?: Point;
     troopLocation: Point;
-    overlays?: {
-      border: boolean;
-      fill: OverlayFill;
-      shape: Point[];
-    }[];
+    overlays?: RegionOverlay[];
   };
+}
+
+export interface RegionOverlay {
+  border: boolean;
+  fill: OverlayFill;
+  shape: Point[];
 }
