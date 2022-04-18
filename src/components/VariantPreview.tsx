@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import styled from "styled-components";
 import { Point } from "../models/Point";
-import { Variant } from "../models/Variant";
+import { OverlayFill, Region, RegionType, Variant } from "../models/Variant";
 
 const Container = styled.div<{ width?: string }>`
   width: ${({ width }) => width || "100%"};
@@ -15,23 +15,38 @@ const Map = styled.svg`
   overflow: hidden;
 `;
 
+const Polygon = styled.polygon<{
+  type: RegionType;
+  ownerColor: string | null;
+  border: boolean;
+}>`
+  fill: ${({ ownerColor, theme, type }) => {
+    if (type === "land") {
+      return ownerColor || theme.color.land;
+    }
+    return theme.color.sea;
+  }};
+  stroke-width: ${({ border }) => (border ? "4px" : "0px")};
+  stroke: ${({ theme }) => theme.color.border};
+`;
+
 interface Props {
   variant: Variant | undefined;
   width?: string;
 }
 export default function VariantPreview(props: Props) {
-  const regionColors = useMemo(() => {
-    const colors: { [id: string]: string } = {};
+  const ownerColors = useMemo(() => {
+    const colors: { [id: string]: string | null } = {};
 
     if (props.variant) {
-      for (const [id, region] of Object.entries(props.variant.regions)) {
+      for (const id of Object.keys(props.variant.regions)) {
         const regionOwner =
           props.variant.nationality[id] || props.variant.supplyCenters[id];
 
         if (regionOwner && regionOwner !== "none") {
           colors[id] = props.variant.nations[regionOwner].color;
         } else {
-          colors[id] = region.type;
+          colors[id] = null;
         }
       }
     }
@@ -47,8 +62,8 @@ export default function VariantPreview(props: Props) {
           {Object.entries(props.variant.regions).map(([id, region]) => (
             <RegionPolygon
               key={id}
-              shape={region.shape}
-              fill={regionColors[id]}
+              region={region}
+              ownerColor={ownerColors[id]}
             />
           ))}
         </Map>
@@ -57,32 +72,62 @@ export default function VariantPreview(props: Props) {
   );
 }
 
-const Polygon = styled.polygon<{ fill: string }>`
-  fill: ${({ fill, theme }) => {
-    if (fill === "land") {
-      return theme.color.land;
-    }
-    if (fill === "sea" || fill === "archipelago") {
-      return theme.color.sea;
-    }
-    return fill;
-  }};
-  stroke-width: 4px;
-  stroke: ${({ theme }) => theme.color.border};
-`;
-
 interface RegionProps {
-  shape: Point[];
-  fill: string;
+  region: Region;
+  ownerColor: string | null;
 }
 function RegionPolygon(props: RegionProps) {
-  const pointsString = useMemo(() => {
-    let points = [];
-    for (const point of props.shape) {
+  const shapeToString = (shape: Point[]) => {
+    const points = [];
+    for (const point of shape) {
       points.push(`${point.x} ${point.y}`);
     }
     return points.join(" ");
-  }, [props.shape]);
+  };
 
-  return <Polygon points={pointsString} fill={props.fill}></Polygon>;
+  const regionPoints = useMemo(
+    () => shapeToString(props.region.shape),
+    [props.region.shape]
+  );
+
+  const overlays = useMemo(() => {
+    if (!props.region.visuals.overlays) return [];
+
+    const overlays: { points: string; fill: OverlayFill; border: boolean }[] =
+      [];
+    for (const overlay of props.region.visuals.overlays) {
+      overlays.push({
+        points: shapeToString(overlay.shape),
+        fill: overlay.fill,
+        border: overlay.border,
+      });
+    }
+    return overlays;
+  }, [props.region.visuals.overlays]);
+
+  return (
+    <>
+      <Polygon
+        points={regionPoints}
+        type={props.region.type}
+        ownerColor={props.ownerColor}
+        border={false}
+      ></Polygon>
+      {overlays.map((overlay, index) => (
+        <Polygon
+          key={index}
+          points={overlay.points}
+          type={overlay.fill}
+          ownerColor={props.ownerColor}
+          border={overlay.border}
+        ></Polygon>
+      ))}
+      <Polygon
+        points={regionPoints}
+        type={props.region.type}
+        ownerColor="transparent"
+        border={true}
+      ></Polygon>
+    </>
+  );
 }

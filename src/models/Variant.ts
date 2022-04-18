@@ -1,9 +1,9 @@
 import { Point } from "./Point";
 
+export type OverlayFill = "land" | "sea";
+export type RegionType = "land" | "sea" | "archipelago";
 type NationId = string;
-type OverlayFill = "land" | "sea";
 type RegionId = string;
-type RegionType = "land" | "sea" | "archipelago";
 type SubRegionId = string;
 
 export interface Variant {
