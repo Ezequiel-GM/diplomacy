@@ -3,9 +3,9 @@ import { useAnimation } from "framer-motion";
 import { PropsWithChildren, useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import styled from "styled-components";
-import { auth } from "../firebase";
-import AppBar from "./appScaffold/AppBar";
-import Sidebar from "./appScaffold/Sidebar";
+import { auth } from "../../firebase";
+import AppBar from "./AppBar";
+import Sidebar from "./Sidebar";
 
 const Scaffold = styled.div<{ user: User | null | undefined }>`
   height: auto;

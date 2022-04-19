@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
-import LoginCard from "../components/login/LoginCard";
-import MapBackground from "../components/login/MapBackground";
-import RegisterCard from "../components/login/RegisterCard";
-import WelcomeCard from "../components/login/WelcomeCard";
+import LoginCard from "./LoginCard";
+import MapBackground from "./MapBackground";
+import RegisterCard from "./RegisterCard";
+import WelcomeCard from "./WelcomeCard";
 
 const PageMotion = styled(motion.main)`
   height: 100%;

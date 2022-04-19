@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Card from "../Card";
-import Heading1 from "../Heading1";
-import TextButton from "../TextButton";
+import Card from "../../components/Card";
+import Heading1 from "../../components/Heading1";
+import TextButton from "../../components/TextButton";
 
 const Paragraph = styled.p`
   margin: 16px 0 8px;

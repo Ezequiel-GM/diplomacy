@@ -1,7 +1,7 @@
 import { ReactChild } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import DropdownItem from "./dropdownMenu/DropdownItem";
+import DropdownItem from "../DropdownItem";
 
 const StyledLink = styled(Link)`
   color: inherit;

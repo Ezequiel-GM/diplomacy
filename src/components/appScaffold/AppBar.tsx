@@ -10,10 +10,10 @@ import {
 } from "@styled-icons/ionicons-outline";
 import { useScreenSize } from "../../hooks/media";
 import DropdownMenu from "../DropdownMenu";
-import DropdownAction from "../DropdownAction";
 import { auth } from "../../firebase";
 import DropdownLink from "../DropdownLink";
 import ButtonRouter from "./ButtonRouter";
+import DropdownItem from "../DropdownItem";
 
 const AppBarShape = styled(motion.div)`
   z-index: 100;
@@ -211,7 +211,7 @@ export default function AppBar(props: Props) {
               label="Settings"
               to="/settings"
             />
-            <DropdownAction
+            <DropdownItem
               icon={<LogOutIcon />}
               label="Sign Out"
               onClick={() => auth.signOut()}

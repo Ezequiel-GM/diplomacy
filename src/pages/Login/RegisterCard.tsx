@@ -3,14 +3,14 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { FormikValues, useFormik } from "formik";
 import { useState } from "react";
 import styled from "styled-components";
+import Card from "../../components/Card";
+import FormError from "../../components/FormError";
+import Heading1 from "../../components/Heading1";
+import LinkButton from "../../components/LinkButton";
+import TextButton from "../../components/TextButton";
+import TextField from "../../components/TextField";
 import { EMAIL_REG_EXP } from "../../constants";
 import { auth } from "../../firebase";
-import Card from "../Card";
-import FormError from "../FormError";
-import Heading1 from "../Heading1";
-import LinkButton from "../LinkButton";
-import TextButton from "../TextButton";
-import TextField from "../TextField";
 
 const BottomSection = styled.div`
   margin-top: 16px;

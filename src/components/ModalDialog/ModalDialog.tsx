@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import ReactModal from "react-modal";
-import theme from "../theme.json";
+import theme from "../../theme.json";
 
 const modalStyles: ReactModal.Styles = {
   overlay: {
