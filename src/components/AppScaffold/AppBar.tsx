@@ -12,7 +12,7 @@ import { useScreenSize } from "../../hooks/media";
 import DropdownMenu from "../DropdownMenu";
 import { auth } from "../../firebase";
 import DropdownLink from "../DropdownLink";
-import ButtonRouter from "./ButtonRouter";
+import AppBarButtonRouter from "./AppBarButtonRouter";
 import DropdownItem from "../DropdownItem";
 
 const AppBarShape = styled(motion.div)`
@@ -204,7 +204,7 @@ export default function AppBar(props: Props) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.75 }}
         >
-          <ButtonRouter />
+          <AppBarButtonRouter />
           <DropdownMenu button={<ProfileIcon />} hideChevron={isSmall}>
             <DropdownLink
               icon={<SettingsIcon />}
