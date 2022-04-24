@@ -39,7 +39,7 @@ export default function RadioGroup(props: Props) {
     <Wrapper>
       {props.label && <GroupLabel>{props.label}</GroupLabel>}
       {props.items.map((item, index) => (
-        <ButtonWrapper>
+        <ButtonWrapper key={item.value}>
           <Button
             type="radio"
             id={item.value}

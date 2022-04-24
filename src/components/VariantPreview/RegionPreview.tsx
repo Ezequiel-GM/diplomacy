@@ -25,8 +25,12 @@ export default function RegionPreview(props: Props) {
         border={false}
       />
       {props.region.visuals.overlays &&
-        props.region.visuals.overlays.map((overlay) => (
-          <OverlayPreview overlay={overlay} ownerColor={props.ownerColor} />
+        props.region.visuals.overlays.map((overlay, index) => (
+          <OverlayPreview
+            key={index}
+            overlay={overlay}
+            ownerColor={props.ownerColor}
+          />
         ))}
       <Polygon points={points} border={true} />
     </>
