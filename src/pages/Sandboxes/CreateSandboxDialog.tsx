@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useGlobalVariants } from "../../hooks/variants";
 import { Variant } from "../../models/Variant";
-import Heading2 from "../../components/Heading2";
 import ModalDialog from "../../components/ModalDialog";
 import RadioGroup from "../../components/RadioGroup";
 import SelectBox from "../../components/SelectBox";
@@ -16,7 +15,7 @@ const Rows = styled.div`
 `;
 
 const Row = styled.div`
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 
   &:last-child {
     margin: 0;
@@ -66,11 +65,12 @@ export default function CreateSandboxDialog(props: Props) {
   }, [variants]);
 
   return (
-    <ModalDialog isOpen={props.isOpen} onRequestClose={props.onRequestClose}>
+    <ModalDialog
+      isOpen={props.isOpen}
+      onRequestClose={props.onRequestClose}
+      title="Create Sandbox"
+    >
       <Rows>
-        <Row>
-          <Heading2>Create Sandbox</Heading2>
-        </Row>
         <Row>
           <ContentSections>
             <Section>
